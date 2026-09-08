@@ -1,0 +1,6151 @@
+{
+  "schema_version": 1,
+  "title": "An overnight research session",
+  "description": "Recorded Slurm responses. Job IDs, names, account, cluster, nodes, partition names and dates are anonymized; states, dependency relationships, resource quantities and timing intervals are preserved. Terminal jobs are retained at their last observation. Some predecessors are outside this recording. No utilization or complete cluster inventory was collected.",
+  "timezone": "UTC",
+  "frames": [
+    {
+      "captured_at": "2026-08-17T22:18:23Z",
+      "jobs": [
+        {
+          "id": "4101",
+          "name": "Run A",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "RUNNING",
+          "reason": "None",
+          "node": "node-01",
+          "submitted_at": "2026-08-17T11:33:36Z",
+          "started_at": "2026-08-17T16:42:46Z",
+          "ended_at": null,
+          "observed_at": "2026-08-17T22:18:23Z",
+          "time_limit": "09:00:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "allocated": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "dependencies": [],
+          "exit_code": null
+        },
+        {
+          "id": "4102",
+          "name": "Run B",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "RUNNING",
+          "reason": "None",
+          "node": "node-01",
+          "submitted_at": "2026-08-17T15:08:35Z",
+          "started_at": "2026-08-17T20:20:43Z",
+          "ended_at": null,
+          "observed_at": "2026-08-17T22:18:23Z",
+          "time_limit": "05:00:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "allocated": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "dependencies": [],
+          "exit_code": null
+        },
+        {
+          "id": "4103",
+          "name": "Run C",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "PENDING",
+          "reason": "Dependency",
+          "node": null,
+          "submitted_at": "2026-08-17T15:09:12Z",
+          "started_at": null,
+          "ended_at": null,
+          "observed_at": "2026-08-17T22:18:23Z",
+          "time_limit": "05:00:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "allocated": null,
+          "dependencies": [
+            {
+              "id": "4104",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4104",
+          "name": "Smoke test C",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "PENDING",
+          "reason": "Dependency",
+          "node": null,
+          "submitted_at": "2026-08-17T15:09:10Z",
+          "started_at": null,
+          "ended_at": null,
+          "observed_at": "2026-08-17T22:18:23Z",
+          "time_limit": "00:05:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 2,
+            "memory": "8G"
+          },
+          "allocated": null,
+          "dependencies": [
+            {
+              "id": "4101",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4105",
+          "name": "Run D",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "PENDING",
+          "reason": "Dependency",
+          "node": null,
+          "submitted_at": "2026-08-17T19:03:47Z",
+          "started_at": null,
+          "ended_at": null,
+          "observed_at": "2026-08-17T22:18:23Z",
+          "time_limit": "05:00:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "allocated": null,
+          "dependencies": [
+            {
+              "id": "4106",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4106",
+          "name": "Smoke test D",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "PENDING",
+          "reason": "Dependency",
+          "node": null,
+          "submitted_at": "2026-08-17T19:03:45Z",
+          "started_at": null,
+          "ended_at": null,
+          "observed_at": "2026-08-17T22:18:23Z",
+          "time_limit": "00:05:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 2,
+            "memory": "8G"
+          },
+          "allocated": null,
+          "dependencies": [
+            {
+              "id": "4102",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4107",
+          "name": "Run E",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "PENDING",
+          "reason": "Dependency",
+          "node": null,
+          "submitted_at": "2026-08-17T19:04:32Z",
+          "started_at": null,
+          "ended_at": null,
+          "observed_at": "2026-08-17T22:18:23Z",
+          "time_limit": "05:00:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "allocated": null,
+          "dependencies": [
+            {
+              "id": "4108",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4108",
+          "name": "Smoke test E",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "PENDING",
+          "reason": "Dependency",
+          "node": null,
+          "submitted_at": "2026-08-17T19:04:30Z",
+          "started_at": null,
+          "ended_at": null,
+          "observed_at": "2026-08-17T22:18:23Z",
+          "time_limit": "00:05:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 2,
+            "memory": "8G"
+          },
+          "allocated": null,
+          "dependencies": [
+            {
+              "id": "4103",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4109",
+          "name": "Run F",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "PENDING",
+          "reason": "Dependency",
+          "node": null,
+          "submitted_at": "2026-08-17T19:05:19Z",
+          "started_at": null,
+          "ended_at": null,
+          "observed_at": "2026-08-17T22:18:23Z",
+          "time_limit": "05:00:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "allocated": null,
+          "dependencies": [
+            {
+              "id": "4110",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4110",
+          "name": "Smoke test F",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "PENDING",
+          "reason": "Dependency",
+          "node": null,
+          "submitted_at": "2026-08-17T19:05:17Z",
+          "started_at": null,
+          "ended_at": null,
+          "observed_at": "2026-08-17T22:18:23Z",
+          "time_limit": "00:05:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 2,
+            "memory": "8G"
+          },
+          "allocated": null,
+          "dependencies": [
+            {
+              "id": "4105",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        }
+      ]
+    },
+    {
+      "captured_at": "2026-08-17T22:52:49Z",
+      "jobs": [
+        {
+          "id": "4101",
+          "name": "Run A",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "RUNNING",
+          "reason": "None",
+          "node": "node-01",
+          "submitted_at": "2026-08-17T11:33:36Z",
+          "started_at": "2026-08-17T16:42:46Z",
+          "ended_at": null,
+          "observed_at": "2026-08-17T22:52:49Z",
+          "time_limit": "09:00:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "allocated": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "dependencies": [],
+          "exit_code": null
+        },
+        {
+          "id": "4102",
+          "name": "Run B",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "RUNNING",
+          "reason": "None",
+          "node": "node-01",
+          "submitted_at": "2026-08-17T15:08:35Z",
+          "started_at": "2026-08-17T20:20:43Z",
+          "ended_at": null,
+          "observed_at": "2026-08-17T22:52:49Z",
+          "time_limit": "05:00:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "allocated": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "dependencies": [],
+          "exit_code": null
+        },
+        {
+          "id": "4103",
+          "name": "Run C",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "PENDING",
+          "reason": "Dependency",
+          "node": null,
+          "submitted_at": "2026-08-17T15:09:12Z",
+          "started_at": null,
+          "ended_at": null,
+          "observed_at": "2026-08-17T22:52:49Z",
+          "time_limit": "05:00:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "allocated": null,
+          "dependencies": [
+            {
+              "id": "4104",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4104",
+          "name": "Smoke test C",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "PENDING",
+          "reason": "Dependency",
+          "node": null,
+          "submitted_at": "2026-08-17T15:09:10Z",
+          "started_at": null,
+          "ended_at": null,
+          "observed_at": "2026-08-17T22:52:49Z",
+          "time_limit": "00:05:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 2,
+            "memory": "8G"
+          },
+          "allocated": null,
+          "dependencies": [
+            {
+              "id": "4101",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4105",
+          "name": "Run D",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "PENDING",
+          "reason": "Dependency",
+          "node": null,
+          "submitted_at": "2026-08-17T19:03:47Z",
+          "started_at": null,
+          "ended_at": null,
+          "observed_at": "2026-08-17T22:52:49Z",
+          "time_limit": "05:00:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "allocated": null,
+          "dependencies": [
+            {
+              "id": "4106",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4106",
+          "name": "Smoke test D",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "PENDING",
+          "reason": "Dependency",
+          "node": null,
+          "submitted_at": "2026-08-17T19:03:45Z",
+          "started_at": null,
+          "ended_at": null,
+          "observed_at": "2026-08-17T22:52:49Z",
+          "time_limit": "00:05:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 2,
+            "memory": "8G"
+          },
+          "allocated": null,
+          "dependencies": [
+            {
+              "id": "4102",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4107",
+          "name": "Run E",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "PENDING",
+          "reason": "Dependency",
+          "node": null,
+          "submitted_at": "2026-08-17T19:04:32Z",
+          "started_at": null,
+          "ended_at": null,
+          "observed_at": "2026-08-17T22:52:49Z",
+          "time_limit": "05:00:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "allocated": null,
+          "dependencies": [
+            {
+              "id": "4108",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4108",
+          "name": "Smoke test E",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "PENDING",
+          "reason": "Dependency",
+          "node": null,
+          "submitted_at": "2026-08-17T19:04:30Z",
+          "started_at": null,
+          "ended_at": null,
+          "observed_at": "2026-08-17T22:52:49Z",
+          "time_limit": "00:05:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 2,
+            "memory": "8G"
+          },
+          "allocated": null,
+          "dependencies": [
+            {
+              "id": "4103",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4109",
+          "name": "Run F",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "PENDING",
+          "reason": "Dependency",
+          "node": null,
+          "submitted_at": "2026-08-17T19:05:19Z",
+          "started_at": null,
+          "ended_at": null,
+          "observed_at": "2026-08-17T22:52:49Z",
+          "time_limit": "05:00:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "allocated": null,
+          "dependencies": [
+            {
+              "id": "4110",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4110",
+          "name": "Smoke test F",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "PENDING",
+          "reason": "Dependency",
+          "node": null,
+          "submitted_at": "2026-08-17T19:05:17Z",
+          "started_at": null,
+          "ended_at": null,
+          "observed_at": "2026-08-17T22:52:49Z",
+          "time_limit": "00:05:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 2,
+            "memory": "8G"
+          },
+          "allocated": null,
+          "dependencies": [
+            {
+              "id": "4105",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        }
+      ]
+    },
+    {
+      "captured_at": "2026-08-17T23:25:26Z",
+      "jobs": [
+        {
+          "id": "4101",
+          "name": "Run A",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "RUNNING",
+          "reason": "None",
+          "node": "node-01",
+          "submitted_at": "2026-08-17T11:33:36Z",
+          "started_at": "2026-08-17T16:42:46Z",
+          "ended_at": null,
+          "observed_at": "2026-08-17T23:25:26Z",
+          "time_limit": "09:00:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "allocated": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "dependencies": [],
+          "exit_code": null
+        },
+        {
+          "id": "4102",
+          "name": "Run B",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "RUNNING",
+          "reason": "None",
+          "node": "node-01",
+          "submitted_at": "2026-08-17T15:08:35Z",
+          "started_at": "2026-08-17T20:20:43Z",
+          "ended_at": null,
+          "observed_at": "2026-08-17T23:25:26Z",
+          "time_limit": "05:00:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "allocated": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "dependencies": [],
+          "exit_code": null
+        },
+        {
+          "id": "4103",
+          "name": "Run C",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "PENDING",
+          "reason": "Dependency",
+          "node": null,
+          "submitted_at": "2026-08-17T15:09:12Z",
+          "started_at": null,
+          "ended_at": null,
+          "observed_at": "2026-08-17T23:25:26Z",
+          "time_limit": "05:00:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "allocated": null,
+          "dependencies": [
+            {
+              "id": "4104",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4104",
+          "name": "Smoke test C",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "PENDING",
+          "reason": "Dependency",
+          "node": null,
+          "submitted_at": "2026-08-17T15:09:10Z",
+          "started_at": null,
+          "ended_at": null,
+          "observed_at": "2026-08-17T23:25:26Z",
+          "time_limit": "00:05:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 2,
+            "memory": "8G"
+          },
+          "allocated": null,
+          "dependencies": [
+            {
+              "id": "4101",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4105",
+          "name": "Run D",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "PENDING",
+          "reason": "Dependency",
+          "node": null,
+          "submitted_at": "2026-08-17T19:03:47Z",
+          "started_at": null,
+          "ended_at": null,
+          "observed_at": "2026-08-17T23:25:26Z",
+          "time_limit": "05:00:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "allocated": null,
+          "dependencies": [
+            {
+              "id": "4106",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4106",
+          "name": "Smoke test D",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "PENDING",
+          "reason": "Dependency",
+          "node": null,
+          "submitted_at": "2026-08-17T19:03:45Z",
+          "started_at": null,
+          "ended_at": null,
+          "observed_at": "2026-08-17T23:25:26Z",
+          "time_limit": "00:05:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 2,
+            "memory": "8G"
+          },
+          "allocated": null,
+          "dependencies": [
+            {
+              "id": "4102",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4107",
+          "name": "Run E",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "PENDING",
+          "reason": "Dependency",
+          "node": null,
+          "submitted_at": "2026-08-17T19:04:32Z",
+          "started_at": null,
+          "ended_at": null,
+          "observed_at": "2026-08-17T23:25:26Z",
+          "time_limit": "05:00:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "allocated": null,
+          "dependencies": [
+            {
+              "id": "4108",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4108",
+          "name": "Smoke test E",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "PENDING",
+          "reason": "Dependency",
+          "node": null,
+          "submitted_at": "2026-08-17T19:04:30Z",
+          "started_at": null,
+          "ended_at": null,
+          "observed_at": "2026-08-17T23:25:26Z",
+          "time_limit": "00:05:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 2,
+            "memory": "8G"
+          },
+          "allocated": null,
+          "dependencies": [
+            {
+              "id": "4103",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4109",
+          "name": "Run F",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "PENDING",
+          "reason": "Dependency",
+          "node": null,
+          "submitted_at": "2026-08-17T19:05:19Z",
+          "started_at": null,
+          "ended_at": null,
+          "observed_at": "2026-08-17T23:25:26Z",
+          "time_limit": "05:00:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "allocated": null,
+          "dependencies": [
+            {
+              "id": "4110",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4110",
+          "name": "Smoke test F",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "PENDING",
+          "reason": "Dependency",
+          "node": null,
+          "submitted_at": "2026-08-17T19:05:17Z",
+          "started_at": null,
+          "ended_at": null,
+          "observed_at": "2026-08-17T23:25:26Z",
+          "time_limit": "00:05:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 2,
+            "memory": "8G"
+          },
+          "allocated": null,
+          "dependencies": [
+            {
+              "id": "4105",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        }
+      ]
+    },
+    {
+      "captured_at": "2026-08-18T00:02:43Z",
+      "jobs": [
+        {
+          "id": "4101",
+          "name": "Run A",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "RUNNING",
+          "reason": "None",
+          "node": "node-01",
+          "submitted_at": "2026-08-17T11:33:36Z",
+          "started_at": "2026-08-17T16:42:46Z",
+          "ended_at": null,
+          "observed_at": "2026-08-18T00:02:43Z",
+          "time_limit": "09:00:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "allocated": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "dependencies": [],
+          "exit_code": null
+        },
+        {
+          "id": "4102",
+          "name": "Run B",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "RUNNING",
+          "reason": "None",
+          "node": "node-01",
+          "submitted_at": "2026-08-17T15:08:35Z",
+          "started_at": "2026-08-17T20:20:43Z",
+          "ended_at": null,
+          "observed_at": "2026-08-18T00:02:43Z",
+          "time_limit": "05:00:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "allocated": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "dependencies": [],
+          "exit_code": null
+        },
+        {
+          "id": "4103",
+          "name": "Run C",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "PENDING",
+          "reason": "Dependency",
+          "node": null,
+          "submitted_at": "2026-08-17T15:09:12Z",
+          "started_at": null,
+          "ended_at": null,
+          "observed_at": "2026-08-18T00:02:43Z",
+          "time_limit": "05:00:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "allocated": null,
+          "dependencies": [
+            {
+              "id": "4104",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4104",
+          "name": "Smoke test C",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "PENDING",
+          "reason": "Dependency",
+          "node": null,
+          "submitted_at": "2026-08-17T15:09:10Z",
+          "started_at": null,
+          "ended_at": null,
+          "observed_at": "2026-08-18T00:02:43Z",
+          "time_limit": "00:05:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 2,
+            "memory": "8G"
+          },
+          "allocated": null,
+          "dependencies": [
+            {
+              "id": "4101",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4105",
+          "name": "Run D",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "PENDING",
+          "reason": "Dependency",
+          "node": null,
+          "submitted_at": "2026-08-17T19:03:47Z",
+          "started_at": null,
+          "ended_at": null,
+          "observed_at": "2026-08-18T00:02:43Z",
+          "time_limit": "05:00:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "allocated": null,
+          "dependencies": [
+            {
+              "id": "4106",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4106",
+          "name": "Smoke test D",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "PENDING",
+          "reason": "Dependency",
+          "node": null,
+          "submitted_at": "2026-08-17T19:03:45Z",
+          "started_at": null,
+          "ended_at": null,
+          "observed_at": "2026-08-18T00:02:43Z",
+          "time_limit": "00:05:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 2,
+            "memory": "8G"
+          },
+          "allocated": null,
+          "dependencies": [
+            {
+              "id": "4102",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4107",
+          "name": "Run E",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "PENDING",
+          "reason": "Dependency",
+          "node": null,
+          "submitted_at": "2026-08-17T19:04:32Z",
+          "started_at": null,
+          "ended_at": null,
+          "observed_at": "2026-08-18T00:02:43Z",
+          "time_limit": "05:00:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "allocated": null,
+          "dependencies": [
+            {
+              "id": "4108",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4108",
+          "name": "Smoke test E",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "PENDING",
+          "reason": "Dependency",
+          "node": null,
+          "submitted_at": "2026-08-17T19:04:30Z",
+          "started_at": null,
+          "ended_at": null,
+          "observed_at": "2026-08-18T00:02:43Z",
+          "time_limit": "00:05:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 2,
+            "memory": "8G"
+          },
+          "allocated": null,
+          "dependencies": [
+            {
+              "id": "4103",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4109",
+          "name": "Run F",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "PENDING",
+          "reason": "Dependency",
+          "node": null,
+          "submitted_at": "2026-08-17T19:05:19Z",
+          "started_at": null,
+          "ended_at": null,
+          "observed_at": "2026-08-18T00:02:43Z",
+          "time_limit": "05:00:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "allocated": null,
+          "dependencies": [
+            {
+              "id": "4110",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4110",
+          "name": "Smoke test F",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "PENDING",
+          "reason": "Dependency",
+          "node": null,
+          "submitted_at": "2026-08-17T19:05:17Z",
+          "started_at": null,
+          "ended_at": null,
+          "observed_at": "2026-08-18T00:02:43Z",
+          "time_limit": "00:05:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 2,
+            "memory": "8G"
+          },
+          "allocated": null,
+          "dependencies": [
+            {
+              "id": "4105",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        }
+      ]
+    },
+    {
+      "captured_at": "2026-08-18T00:36:55Z",
+      "jobs": [
+        {
+          "id": "4101",
+          "name": "Run A",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "RUNNING",
+          "reason": "None",
+          "node": "node-01",
+          "submitted_at": "2026-08-17T11:33:36Z",
+          "started_at": "2026-08-17T16:42:46Z",
+          "ended_at": null,
+          "observed_at": "2026-08-18T00:36:55Z",
+          "time_limit": "09:00:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "allocated": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "dependencies": [],
+          "exit_code": null
+        },
+        {
+          "id": "4102",
+          "name": "Run B",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "RUNNING",
+          "reason": "None",
+          "node": "node-01",
+          "submitted_at": "2026-08-17T15:08:35Z",
+          "started_at": "2026-08-17T20:20:43Z",
+          "ended_at": null,
+          "observed_at": "2026-08-18T00:02:43Z",
+          "time_limit": "05:00:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "allocated": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "dependencies": [],
+          "exit_code": null
+        },
+        {
+          "id": "4103",
+          "name": "Run C",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "PENDING",
+          "reason": "Dependency",
+          "node": null,
+          "submitted_at": "2026-08-17T15:09:12Z",
+          "started_at": null,
+          "ended_at": null,
+          "observed_at": "2026-08-18T00:36:55Z",
+          "time_limit": "05:00:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "allocated": null,
+          "dependencies": [
+            {
+              "id": "4104",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4104",
+          "name": "Smoke test C",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "PENDING",
+          "reason": "Dependency",
+          "node": null,
+          "submitted_at": "2026-08-17T15:09:10Z",
+          "started_at": null,
+          "ended_at": null,
+          "observed_at": "2026-08-18T00:36:55Z",
+          "time_limit": "00:05:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 2,
+            "memory": "8G"
+          },
+          "allocated": null,
+          "dependencies": [
+            {
+              "id": "4101",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4105",
+          "name": "Run D",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "RUNNING",
+          "reason": "None",
+          "node": "node-01",
+          "submitted_at": "2026-08-17T19:03:47Z",
+          "started_at": "2026-08-18T00:27:50Z",
+          "ended_at": null,
+          "observed_at": "2026-08-18T00:36:55Z",
+          "time_limit": "05:00:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "allocated": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "dependencies": [
+            {
+              "id": "4106",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4106",
+          "name": "Smoke test D",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "PENDING",
+          "reason": "Dependency",
+          "node": null,
+          "submitted_at": "2026-08-17T19:03:45Z",
+          "started_at": null,
+          "ended_at": null,
+          "observed_at": "2026-08-18T00:02:43Z",
+          "time_limit": "00:05:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 2,
+            "memory": "8G"
+          },
+          "allocated": null,
+          "dependencies": [
+            {
+              "id": "4102",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4107",
+          "name": "Run E",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "PENDING",
+          "reason": "Dependency",
+          "node": null,
+          "submitted_at": "2026-08-17T19:04:32Z",
+          "started_at": null,
+          "ended_at": null,
+          "observed_at": "2026-08-18T00:36:55Z",
+          "time_limit": "05:00:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "allocated": null,
+          "dependencies": [
+            {
+              "id": "4108",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4108",
+          "name": "Smoke test E",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "PENDING",
+          "reason": "Dependency",
+          "node": null,
+          "submitted_at": "2026-08-17T19:04:30Z",
+          "started_at": null,
+          "ended_at": null,
+          "observed_at": "2026-08-18T00:36:55Z",
+          "time_limit": "00:05:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 2,
+            "memory": "8G"
+          },
+          "allocated": null,
+          "dependencies": [
+            {
+              "id": "4103",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4109",
+          "name": "Run F",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "PENDING",
+          "reason": "Dependency",
+          "node": null,
+          "submitted_at": "2026-08-17T19:05:19Z",
+          "started_at": null,
+          "ended_at": null,
+          "observed_at": "2026-08-18T00:36:55Z",
+          "time_limit": "05:00:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "allocated": null,
+          "dependencies": [
+            {
+              "id": "4110",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4110",
+          "name": "Smoke test F",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "PENDING",
+          "reason": "Dependency",
+          "node": null,
+          "submitted_at": "2026-08-17T19:05:17Z",
+          "started_at": null,
+          "ended_at": null,
+          "observed_at": "2026-08-18T00:36:55Z",
+          "time_limit": "00:05:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 2,
+            "memory": "8G"
+          },
+          "allocated": null,
+          "dependencies": [
+            {
+              "id": "4105",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        }
+      ]
+    },
+    {
+      "captured_at": "2026-08-18T01:11:27Z",
+      "jobs": [
+        {
+          "id": "4101",
+          "name": "Run A",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "RUNNING",
+          "reason": "None",
+          "node": "node-01",
+          "submitted_at": "2026-08-17T11:33:36Z",
+          "started_at": "2026-08-17T16:42:46Z",
+          "ended_at": null,
+          "observed_at": "2026-08-18T00:36:55Z",
+          "time_limit": "09:00:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "allocated": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "dependencies": [],
+          "exit_code": null
+        },
+        {
+          "id": "4102",
+          "name": "Run B",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "RUNNING",
+          "reason": "None",
+          "node": "node-01",
+          "submitted_at": "2026-08-17T15:08:35Z",
+          "started_at": "2026-08-17T20:20:43Z",
+          "ended_at": null,
+          "observed_at": "2026-08-18T00:02:43Z",
+          "time_limit": "05:00:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "allocated": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "dependencies": [],
+          "exit_code": null
+        },
+        {
+          "id": "4103",
+          "name": "Run C",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "RUNNING",
+          "reason": "None",
+          "node": "node-02",
+          "submitted_at": "2026-08-17T15:09:12Z",
+          "started_at": "2026-08-18T00:52:04Z",
+          "ended_at": null,
+          "observed_at": "2026-08-18T01:11:27Z",
+          "time_limit": "05:00:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "allocated": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "dependencies": [
+            {
+              "id": "4104",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4104",
+          "name": "Smoke test C",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "PENDING",
+          "reason": "Dependency",
+          "node": null,
+          "submitted_at": "2026-08-17T15:09:10Z",
+          "started_at": null,
+          "ended_at": null,
+          "observed_at": "2026-08-18T00:36:55Z",
+          "time_limit": "00:05:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 2,
+            "memory": "8G"
+          },
+          "allocated": null,
+          "dependencies": [
+            {
+              "id": "4101",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4105",
+          "name": "Run D",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "RUNNING",
+          "reason": "None",
+          "node": "node-01",
+          "submitted_at": "2026-08-17T19:03:47Z",
+          "started_at": "2026-08-18T00:27:50Z",
+          "ended_at": null,
+          "observed_at": "2026-08-18T01:11:27Z",
+          "time_limit": "05:00:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "allocated": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "dependencies": [
+            {
+              "id": "4106",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4106",
+          "name": "Smoke test D",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "PENDING",
+          "reason": "Dependency",
+          "node": null,
+          "submitted_at": "2026-08-17T19:03:45Z",
+          "started_at": null,
+          "ended_at": null,
+          "observed_at": "2026-08-18T00:02:43Z",
+          "time_limit": "00:05:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 2,
+            "memory": "8G"
+          },
+          "allocated": null,
+          "dependencies": [
+            {
+              "id": "4102",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4107",
+          "name": "Run E",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "PENDING",
+          "reason": "Dependency",
+          "node": null,
+          "submitted_at": "2026-08-17T19:04:32Z",
+          "started_at": null,
+          "ended_at": null,
+          "observed_at": "2026-08-18T01:11:27Z",
+          "time_limit": "05:00:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "allocated": null,
+          "dependencies": [
+            {
+              "id": "4108",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4108",
+          "name": "Smoke test E",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "PENDING",
+          "reason": "Dependency",
+          "node": null,
+          "submitted_at": "2026-08-17T19:04:30Z",
+          "started_at": null,
+          "ended_at": null,
+          "observed_at": "2026-08-18T01:11:27Z",
+          "time_limit": "00:05:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 2,
+            "memory": "8G"
+          },
+          "allocated": null,
+          "dependencies": [
+            {
+              "id": "4103",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4109",
+          "name": "Run F",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "PENDING",
+          "reason": "Dependency",
+          "node": null,
+          "submitted_at": "2026-08-17T19:05:19Z",
+          "started_at": null,
+          "ended_at": null,
+          "observed_at": "2026-08-18T01:11:27Z",
+          "time_limit": "05:00:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "allocated": null,
+          "dependencies": [
+            {
+              "id": "4110",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4110",
+          "name": "Smoke test F",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "PENDING",
+          "reason": "Dependency",
+          "node": null,
+          "submitted_at": "2026-08-17T19:05:17Z",
+          "started_at": null,
+          "ended_at": null,
+          "observed_at": "2026-08-18T01:11:27Z",
+          "time_limit": "00:05:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 2,
+            "memory": "8G"
+          },
+          "allocated": null,
+          "dependencies": [
+            {
+              "id": "4105",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        }
+      ]
+    },
+    {
+      "captured_at": "2026-08-18T01:45:29Z",
+      "jobs": [
+        {
+          "id": "4101",
+          "name": "Run A",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "RUNNING",
+          "reason": "None",
+          "node": "node-01",
+          "submitted_at": "2026-08-17T11:33:36Z",
+          "started_at": "2026-08-17T16:42:46Z",
+          "ended_at": null,
+          "observed_at": "2026-08-18T00:36:55Z",
+          "time_limit": "09:00:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "allocated": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "dependencies": [],
+          "exit_code": null
+        },
+        {
+          "id": "4102",
+          "name": "Run B",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "RUNNING",
+          "reason": "None",
+          "node": "node-01",
+          "submitted_at": "2026-08-17T15:08:35Z",
+          "started_at": "2026-08-17T20:20:43Z",
+          "ended_at": null,
+          "observed_at": "2026-08-18T00:02:43Z",
+          "time_limit": "05:00:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "allocated": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "dependencies": [],
+          "exit_code": null
+        },
+        {
+          "id": "4103",
+          "name": "Run C",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "RUNNING",
+          "reason": "None",
+          "node": "node-02",
+          "submitted_at": "2026-08-17T15:09:12Z",
+          "started_at": "2026-08-18T00:52:04Z",
+          "ended_at": null,
+          "observed_at": "2026-08-18T01:45:29Z",
+          "time_limit": "05:00:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "allocated": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "dependencies": [
+            {
+              "id": "4104",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4104",
+          "name": "Smoke test C",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "PENDING",
+          "reason": "Dependency",
+          "node": null,
+          "submitted_at": "2026-08-17T15:09:10Z",
+          "started_at": null,
+          "ended_at": null,
+          "observed_at": "2026-08-18T00:36:55Z",
+          "time_limit": "00:05:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 2,
+            "memory": "8G"
+          },
+          "allocated": null,
+          "dependencies": [
+            {
+              "id": "4101",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4105",
+          "name": "Run D",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "RUNNING",
+          "reason": "None",
+          "node": "node-01",
+          "submitted_at": "2026-08-17T19:03:47Z",
+          "started_at": "2026-08-18T00:27:50Z",
+          "ended_at": null,
+          "observed_at": "2026-08-18T01:45:29Z",
+          "time_limit": "05:00:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "allocated": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "dependencies": [
+            {
+              "id": "4106",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4106",
+          "name": "Smoke test D",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "PENDING",
+          "reason": "Dependency",
+          "node": null,
+          "submitted_at": "2026-08-17T19:03:45Z",
+          "started_at": null,
+          "ended_at": null,
+          "observed_at": "2026-08-18T00:02:43Z",
+          "time_limit": "00:05:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 2,
+            "memory": "8G"
+          },
+          "allocated": null,
+          "dependencies": [
+            {
+              "id": "4102",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4107",
+          "name": "Run E",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "PENDING",
+          "reason": "Dependency",
+          "node": null,
+          "submitted_at": "2026-08-17T19:04:32Z",
+          "started_at": null,
+          "ended_at": null,
+          "observed_at": "2026-08-18T01:45:29Z",
+          "time_limit": "05:00:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "allocated": null,
+          "dependencies": [
+            {
+              "id": "4108",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4108",
+          "name": "Smoke test E",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "PENDING",
+          "reason": "Dependency",
+          "node": null,
+          "submitted_at": "2026-08-17T19:04:30Z",
+          "started_at": null,
+          "ended_at": null,
+          "observed_at": "2026-08-18T01:45:29Z",
+          "time_limit": "00:05:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 2,
+            "memory": "8G"
+          },
+          "allocated": null,
+          "dependencies": [
+            {
+              "id": "4103",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4109",
+          "name": "Run F",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "PENDING",
+          "reason": "Dependency",
+          "node": null,
+          "submitted_at": "2026-08-17T19:05:19Z",
+          "started_at": null,
+          "ended_at": null,
+          "observed_at": "2026-08-18T01:45:29Z",
+          "time_limit": "05:00:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "allocated": null,
+          "dependencies": [
+            {
+              "id": "4110",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4110",
+          "name": "Smoke test F",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "PENDING",
+          "reason": "Dependency",
+          "node": null,
+          "submitted_at": "2026-08-17T19:05:17Z",
+          "started_at": null,
+          "ended_at": null,
+          "observed_at": "2026-08-18T01:45:29Z",
+          "time_limit": "00:05:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 2,
+            "memory": "8G"
+          },
+          "allocated": null,
+          "dependencies": [
+            {
+              "id": "4105",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        }
+      ]
+    },
+    {
+      "captured_at": "2026-08-18T02:17:24Z",
+      "jobs": [
+        {
+          "id": "4101",
+          "name": "Run A",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "RUNNING",
+          "reason": "None",
+          "node": "node-01",
+          "submitted_at": "2026-08-17T11:33:36Z",
+          "started_at": "2026-08-17T16:42:46Z",
+          "ended_at": null,
+          "observed_at": "2026-08-18T00:36:55Z",
+          "time_limit": "09:00:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "allocated": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "dependencies": [],
+          "exit_code": null
+        },
+        {
+          "id": "4102",
+          "name": "Run B",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "RUNNING",
+          "reason": "None",
+          "node": "node-01",
+          "submitted_at": "2026-08-17T15:08:35Z",
+          "started_at": "2026-08-17T20:20:43Z",
+          "ended_at": null,
+          "observed_at": "2026-08-18T00:02:43Z",
+          "time_limit": "05:00:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "allocated": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "dependencies": [],
+          "exit_code": null
+        },
+        {
+          "id": "4103",
+          "name": "Run C",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "RUNNING",
+          "reason": "None",
+          "node": "node-02",
+          "submitted_at": "2026-08-17T15:09:12Z",
+          "started_at": "2026-08-18T00:52:04Z",
+          "ended_at": null,
+          "observed_at": "2026-08-18T02:17:24Z",
+          "time_limit": "05:00:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "allocated": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "dependencies": [
+            {
+              "id": "4104",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4104",
+          "name": "Smoke test C",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "PENDING",
+          "reason": "Dependency",
+          "node": null,
+          "submitted_at": "2026-08-17T15:09:10Z",
+          "started_at": null,
+          "ended_at": null,
+          "observed_at": "2026-08-18T00:36:55Z",
+          "time_limit": "00:05:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 2,
+            "memory": "8G"
+          },
+          "allocated": null,
+          "dependencies": [
+            {
+              "id": "4101",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4105",
+          "name": "Run D",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "RUNNING",
+          "reason": "None",
+          "node": "node-01",
+          "submitted_at": "2026-08-17T19:03:47Z",
+          "started_at": "2026-08-18T00:27:50Z",
+          "ended_at": null,
+          "observed_at": "2026-08-18T02:17:24Z",
+          "time_limit": "05:00:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "allocated": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "dependencies": [
+            {
+              "id": "4106",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4106",
+          "name": "Smoke test D",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "PENDING",
+          "reason": "Dependency",
+          "node": null,
+          "submitted_at": "2026-08-17T19:03:45Z",
+          "started_at": null,
+          "ended_at": null,
+          "observed_at": "2026-08-18T00:02:43Z",
+          "time_limit": "00:05:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 2,
+            "memory": "8G"
+          },
+          "allocated": null,
+          "dependencies": [
+            {
+              "id": "4102",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4107",
+          "name": "Run E",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "PENDING",
+          "reason": "Dependency",
+          "node": null,
+          "submitted_at": "2026-08-17T19:04:32Z",
+          "started_at": null,
+          "ended_at": null,
+          "observed_at": "2026-08-18T02:17:24Z",
+          "time_limit": "05:00:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "allocated": null,
+          "dependencies": [
+            {
+              "id": "4108",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4108",
+          "name": "Smoke test E",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "PENDING",
+          "reason": "Dependency",
+          "node": null,
+          "submitted_at": "2026-08-17T19:04:30Z",
+          "started_at": null,
+          "ended_at": null,
+          "observed_at": "2026-08-18T02:17:24Z",
+          "time_limit": "00:05:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 2,
+            "memory": "8G"
+          },
+          "allocated": null,
+          "dependencies": [
+            {
+              "id": "4103",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4109",
+          "name": "Run F",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "PENDING",
+          "reason": "Dependency",
+          "node": null,
+          "submitted_at": "2026-08-17T19:05:19Z",
+          "started_at": null,
+          "ended_at": null,
+          "observed_at": "2026-08-18T02:17:24Z",
+          "time_limit": "05:00:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "allocated": null,
+          "dependencies": [
+            {
+              "id": "4110",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4110",
+          "name": "Smoke test F",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "PENDING",
+          "reason": "Dependency",
+          "node": null,
+          "submitted_at": "2026-08-17T19:05:17Z",
+          "started_at": null,
+          "ended_at": null,
+          "observed_at": "2026-08-18T02:17:24Z",
+          "time_limit": "00:05:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 2,
+            "memory": "8G"
+          },
+          "allocated": null,
+          "dependencies": [
+            {
+              "id": "4105",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        }
+      ]
+    },
+    {
+      "captured_at": "2026-08-18T02:48:54Z",
+      "jobs": [
+        {
+          "id": "4101",
+          "name": "Run A",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "RUNNING",
+          "reason": "None",
+          "node": "node-01",
+          "submitted_at": "2026-08-17T11:33:36Z",
+          "started_at": "2026-08-17T16:42:46Z",
+          "ended_at": null,
+          "observed_at": "2026-08-18T00:36:55Z",
+          "time_limit": "09:00:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "allocated": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "dependencies": [],
+          "exit_code": null
+        },
+        {
+          "id": "4102",
+          "name": "Run B",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "RUNNING",
+          "reason": "None",
+          "node": "node-01",
+          "submitted_at": "2026-08-17T15:08:35Z",
+          "started_at": "2026-08-17T20:20:43Z",
+          "ended_at": null,
+          "observed_at": "2026-08-18T00:02:43Z",
+          "time_limit": "05:00:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "allocated": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "dependencies": [],
+          "exit_code": null
+        },
+        {
+          "id": "4103",
+          "name": "Run C",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "RUNNING",
+          "reason": "None",
+          "node": "node-02",
+          "submitted_at": "2026-08-17T15:09:12Z",
+          "started_at": "2026-08-18T00:52:04Z",
+          "ended_at": null,
+          "observed_at": "2026-08-18T02:48:54Z",
+          "time_limit": "05:00:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "allocated": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "dependencies": [
+            {
+              "id": "4104",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4104",
+          "name": "Smoke test C",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "PENDING",
+          "reason": "Dependency",
+          "node": null,
+          "submitted_at": "2026-08-17T15:09:10Z",
+          "started_at": null,
+          "ended_at": null,
+          "observed_at": "2026-08-18T00:36:55Z",
+          "time_limit": "00:05:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 2,
+            "memory": "8G"
+          },
+          "allocated": null,
+          "dependencies": [
+            {
+              "id": "4101",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4105",
+          "name": "Run D",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "RUNNING",
+          "reason": "None",
+          "node": "node-01",
+          "submitted_at": "2026-08-17T19:03:47Z",
+          "started_at": "2026-08-18T00:27:50Z",
+          "ended_at": null,
+          "observed_at": "2026-08-18T02:48:54Z",
+          "time_limit": "05:00:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "allocated": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "dependencies": [
+            {
+              "id": "4106",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4106",
+          "name": "Smoke test D",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "PENDING",
+          "reason": "Dependency",
+          "node": null,
+          "submitted_at": "2026-08-17T19:03:45Z",
+          "started_at": null,
+          "ended_at": null,
+          "observed_at": "2026-08-18T00:02:43Z",
+          "time_limit": "00:05:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 2,
+            "memory": "8G"
+          },
+          "allocated": null,
+          "dependencies": [
+            {
+              "id": "4102",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4107",
+          "name": "Run E",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "PENDING",
+          "reason": "Dependency",
+          "node": null,
+          "submitted_at": "2026-08-17T19:04:32Z",
+          "started_at": null,
+          "ended_at": null,
+          "observed_at": "2026-08-18T02:48:54Z",
+          "time_limit": "05:00:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "allocated": null,
+          "dependencies": [
+            {
+              "id": "4108",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4108",
+          "name": "Smoke test E",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "PENDING",
+          "reason": "Dependency",
+          "node": null,
+          "submitted_at": "2026-08-17T19:04:30Z",
+          "started_at": null,
+          "ended_at": null,
+          "observed_at": "2026-08-18T02:48:54Z",
+          "time_limit": "00:05:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 2,
+            "memory": "8G"
+          },
+          "allocated": null,
+          "dependencies": [
+            {
+              "id": "4103",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4109",
+          "name": "Run F",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "PENDING",
+          "reason": "Dependency",
+          "node": null,
+          "submitted_at": "2026-08-17T19:05:19Z",
+          "started_at": null,
+          "ended_at": null,
+          "observed_at": "2026-08-18T02:48:54Z",
+          "time_limit": "05:00:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "allocated": null,
+          "dependencies": [
+            {
+              "id": "4110",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4110",
+          "name": "Smoke test F",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "PENDING",
+          "reason": "Dependency",
+          "node": null,
+          "submitted_at": "2026-08-17T19:05:17Z",
+          "started_at": null,
+          "ended_at": null,
+          "observed_at": "2026-08-18T02:48:54Z",
+          "time_limit": "00:05:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 2,
+            "memory": "8G"
+          },
+          "allocated": null,
+          "dependencies": [
+            {
+              "id": "4105",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        }
+      ]
+    },
+    {
+      "captured_at": "2026-08-18T03:20:24Z",
+      "jobs": [
+        {
+          "id": "4101",
+          "name": "Run A",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "RUNNING",
+          "reason": "None",
+          "node": "node-01",
+          "submitted_at": "2026-08-17T11:33:36Z",
+          "started_at": "2026-08-17T16:42:46Z",
+          "ended_at": null,
+          "observed_at": "2026-08-18T00:36:55Z",
+          "time_limit": "09:00:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "allocated": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "dependencies": [],
+          "exit_code": null
+        },
+        {
+          "id": "4102",
+          "name": "Run B",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "RUNNING",
+          "reason": "None",
+          "node": "node-01",
+          "submitted_at": "2026-08-17T15:08:35Z",
+          "started_at": "2026-08-17T20:20:43Z",
+          "ended_at": null,
+          "observed_at": "2026-08-18T00:02:43Z",
+          "time_limit": "05:00:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "allocated": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "dependencies": [],
+          "exit_code": null
+        },
+        {
+          "id": "4103",
+          "name": "Run C",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "RUNNING",
+          "reason": "None",
+          "node": "node-02",
+          "submitted_at": "2026-08-17T15:09:12Z",
+          "started_at": "2026-08-18T00:52:04Z",
+          "ended_at": null,
+          "observed_at": "2026-08-18T03:20:24Z",
+          "time_limit": "05:00:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "allocated": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "dependencies": [
+            {
+              "id": "4104",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4104",
+          "name": "Smoke test C",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "PENDING",
+          "reason": "Dependency",
+          "node": null,
+          "submitted_at": "2026-08-17T15:09:10Z",
+          "started_at": null,
+          "ended_at": null,
+          "observed_at": "2026-08-18T00:36:55Z",
+          "time_limit": "00:05:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 2,
+            "memory": "8G"
+          },
+          "allocated": null,
+          "dependencies": [
+            {
+              "id": "4101",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4105",
+          "name": "Run D",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "RUNNING",
+          "reason": "None",
+          "node": "node-01",
+          "submitted_at": "2026-08-17T19:03:47Z",
+          "started_at": "2026-08-18T00:27:50Z",
+          "ended_at": null,
+          "observed_at": "2026-08-18T03:20:24Z",
+          "time_limit": "05:00:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "allocated": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "dependencies": [
+            {
+              "id": "4106",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4106",
+          "name": "Smoke test D",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "PENDING",
+          "reason": "Dependency",
+          "node": null,
+          "submitted_at": "2026-08-17T19:03:45Z",
+          "started_at": null,
+          "ended_at": null,
+          "observed_at": "2026-08-18T00:02:43Z",
+          "time_limit": "00:05:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 2,
+            "memory": "8G"
+          },
+          "allocated": null,
+          "dependencies": [
+            {
+              "id": "4102",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4107",
+          "name": "Run E",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "PENDING",
+          "reason": "Dependency",
+          "node": null,
+          "submitted_at": "2026-08-17T19:04:32Z",
+          "started_at": null,
+          "ended_at": null,
+          "observed_at": "2026-08-18T03:20:24Z",
+          "time_limit": "05:00:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "allocated": null,
+          "dependencies": [
+            {
+              "id": "4108",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4108",
+          "name": "Smoke test E",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "PENDING",
+          "reason": "Dependency",
+          "node": null,
+          "submitted_at": "2026-08-17T19:04:30Z",
+          "started_at": null,
+          "ended_at": null,
+          "observed_at": "2026-08-18T03:20:24Z",
+          "time_limit": "00:05:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 2,
+            "memory": "8G"
+          },
+          "allocated": null,
+          "dependencies": [
+            {
+              "id": "4103",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4109",
+          "name": "Run F",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "PENDING",
+          "reason": "Dependency",
+          "node": null,
+          "submitted_at": "2026-08-17T19:05:19Z",
+          "started_at": null,
+          "ended_at": null,
+          "observed_at": "2026-08-18T03:20:24Z",
+          "time_limit": "05:00:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "allocated": null,
+          "dependencies": [
+            {
+              "id": "4110",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4110",
+          "name": "Smoke test F",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "PENDING",
+          "reason": "Dependency",
+          "node": null,
+          "submitted_at": "2026-08-17T19:05:17Z",
+          "started_at": null,
+          "ended_at": null,
+          "observed_at": "2026-08-18T03:20:24Z",
+          "time_limit": "00:05:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 2,
+            "memory": "8G"
+          },
+          "allocated": null,
+          "dependencies": [
+            {
+              "id": "4105",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        }
+      ]
+    },
+    {
+      "captured_at": "2026-08-18T03:52:04Z",
+      "jobs": [
+        {
+          "id": "4101",
+          "name": "Run A",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "RUNNING",
+          "reason": "None",
+          "node": "node-01",
+          "submitted_at": "2026-08-17T11:33:36Z",
+          "started_at": "2026-08-17T16:42:46Z",
+          "ended_at": null,
+          "observed_at": "2026-08-18T00:36:55Z",
+          "time_limit": "09:00:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "allocated": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "dependencies": [],
+          "exit_code": null
+        },
+        {
+          "id": "4102",
+          "name": "Run B",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "RUNNING",
+          "reason": "None",
+          "node": "node-01",
+          "submitted_at": "2026-08-17T15:08:35Z",
+          "started_at": "2026-08-17T20:20:43Z",
+          "ended_at": null,
+          "observed_at": "2026-08-18T00:02:43Z",
+          "time_limit": "05:00:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "allocated": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "dependencies": [],
+          "exit_code": null
+        },
+        {
+          "id": "4103",
+          "name": "Run C",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "RUNNING",
+          "reason": "None",
+          "node": "node-02",
+          "submitted_at": "2026-08-17T15:09:12Z",
+          "started_at": "2026-08-18T00:52:04Z",
+          "ended_at": null,
+          "observed_at": "2026-08-18T03:52:04Z",
+          "time_limit": "05:00:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "allocated": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "dependencies": [
+            {
+              "id": "4104",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4104",
+          "name": "Smoke test C",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "PENDING",
+          "reason": "Dependency",
+          "node": null,
+          "submitted_at": "2026-08-17T15:09:10Z",
+          "started_at": null,
+          "ended_at": null,
+          "observed_at": "2026-08-18T00:36:55Z",
+          "time_limit": "00:05:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 2,
+            "memory": "8G"
+          },
+          "allocated": null,
+          "dependencies": [
+            {
+              "id": "4101",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4105",
+          "name": "Run D",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "RUNNING",
+          "reason": "None",
+          "node": "node-01",
+          "submitted_at": "2026-08-17T19:03:47Z",
+          "started_at": "2026-08-18T00:27:50Z",
+          "ended_at": null,
+          "observed_at": "2026-08-18T03:52:04Z",
+          "time_limit": "05:00:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "allocated": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "dependencies": [
+            {
+              "id": "4106",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4106",
+          "name": "Smoke test D",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "PENDING",
+          "reason": "Dependency",
+          "node": null,
+          "submitted_at": "2026-08-17T19:03:45Z",
+          "started_at": null,
+          "ended_at": null,
+          "observed_at": "2026-08-18T00:02:43Z",
+          "time_limit": "00:05:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 2,
+            "memory": "8G"
+          },
+          "allocated": null,
+          "dependencies": [
+            {
+              "id": "4102",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4107",
+          "name": "Run E",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "PENDING",
+          "reason": "Dependency",
+          "node": null,
+          "submitted_at": "2026-08-17T19:04:32Z",
+          "started_at": null,
+          "ended_at": null,
+          "observed_at": "2026-08-18T03:52:04Z",
+          "time_limit": "05:00:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "allocated": null,
+          "dependencies": [
+            {
+              "id": "4108",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4108",
+          "name": "Smoke test E",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "PENDING",
+          "reason": "Dependency",
+          "node": null,
+          "submitted_at": "2026-08-17T19:04:30Z",
+          "started_at": null,
+          "ended_at": null,
+          "observed_at": "2026-08-18T03:52:04Z",
+          "time_limit": "00:05:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 2,
+            "memory": "8G"
+          },
+          "allocated": null,
+          "dependencies": [
+            {
+              "id": "4103",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4109",
+          "name": "Run F",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "PENDING",
+          "reason": "Dependency",
+          "node": null,
+          "submitted_at": "2026-08-17T19:05:19Z",
+          "started_at": null,
+          "ended_at": null,
+          "observed_at": "2026-08-18T03:52:04Z",
+          "time_limit": "05:00:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "allocated": null,
+          "dependencies": [
+            {
+              "id": "4110",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4110",
+          "name": "Smoke test F",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "PENDING",
+          "reason": "Dependency",
+          "node": null,
+          "submitted_at": "2026-08-17T19:05:17Z",
+          "started_at": null,
+          "ended_at": null,
+          "observed_at": "2026-08-18T03:52:04Z",
+          "time_limit": "00:05:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 2,
+            "memory": "8G"
+          },
+          "allocated": null,
+          "dependencies": [
+            {
+              "id": "4105",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        }
+      ]
+    },
+    {
+      "captured_at": "2026-08-18T04:23:54Z",
+      "jobs": [
+        {
+          "id": "4101",
+          "name": "Run A",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "RUNNING",
+          "reason": "None",
+          "node": "node-01",
+          "submitted_at": "2026-08-17T11:33:36Z",
+          "started_at": "2026-08-17T16:42:46Z",
+          "ended_at": null,
+          "observed_at": "2026-08-18T00:36:55Z",
+          "time_limit": "09:00:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "allocated": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "dependencies": [],
+          "exit_code": null
+        },
+        {
+          "id": "4102",
+          "name": "Run B",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "RUNNING",
+          "reason": "None",
+          "node": "node-01",
+          "submitted_at": "2026-08-17T15:08:35Z",
+          "started_at": "2026-08-17T20:20:43Z",
+          "ended_at": null,
+          "observed_at": "2026-08-18T00:02:43Z",
+          "time_limit": "05:00:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "allocated": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "dependencies": [],
+          "exit_code": null
+        },
+        {
+          "id": "4103",
+          "name": "Run C",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "RUNNING",
+          "reason": "None",
+          "node": "node-02",
+          "submitted_at": "2026-08-17T15:09:12Z",
+          "started_at": "2026-08-18T00:52:04Z",
+          "ended_at": null,
+          "observed_at": "2026-08-18T04:23:54Z",
+          "time_limit": "05:00:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "allocated": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "dependencies": [
+            {
+              "id": "4104",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4104",
+          "name": "Smoke test C",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "PENDING",
+          "reason": "Dependency",
+          "node": null,
+          "submitted_at": "2026-08-17T15:09:10Z",
+          "started_at": null,
+          "ended_at": null,
+          "observed_at": "2026-08-18T00:36:55Z",
+          "time_limit": "00:05:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 2,
+            "memory": "8G"
+          },
+          "allocated": null,
+          "dependencies": [
+            {
+              "id": "4101",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4105",
+          "name": "Run D",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "RUNNING",
+          "reason": "None",
+          "node": "node-01",
+          "submitted_at": "2026-08-17T19:03:47Z",
+          "started_at": "2026-08-18T00:27:50Z",
+          "ended_at": null,
+          "observed_at": "2026-08-18T04:23:54Z",
+          "time_limit": "05:00:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "allocated": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "dependencies": [
+            {
+              "id": "4106",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4106",
+          "name": "Smoke test D",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "PENDING",
+          "reason": "Dependency",
+          "node": null,
+          "submitted_at": "2026-08-17T19:03:45Z",
+          "started_at": null,
+          "ended_at": null,
+          "observed_at": "2026-08-18T00:02:43Z",
+          "time_limit": "00:05:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 2,
+            "memory": "8G"
+          },
+          "allocated": null,
+          "dependencies": [
+            {
+              "id": "4102",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4107",
+          "name": "Run E",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "PENDING",
+          "reason": "Dependency",
+          "node": null,
+          "submitted_at": "2026-08-17T19:04:32Z",
+          "started_at": null,
+          "ended_at": null,
+          "observed_at": "2026-08-18T04:23:54Z",
+          "time_limit": "05:00:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "allocated": null,
+          "dependencies": [
+            {
+              "id": "4108",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4108",
+          "name": "Smoke test E",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "PENDING",
+          "reason": "Dependency",
+          "node": null,
+          "submitted_at": "2026-08-17T19:04:30Z",
+          "started_at": null,
+          "ended_at": null,
+          "observed_at": "2026-08-18T04:23:54Z",
+          "time_limit": "00:05:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 2,
+            "memory": "8G"
+          },
+          "allocated": null,
+          "dependencies": [
+            {
+              "id": "4103",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4109",
+          "name": "Run F",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "PENDING",
+          "reason": "Dependency",
+          "node": null,
+          "submitted_at": "2026-08-17T19:05:19Z",
+          "started_at": null,
+          "ended_at": null,
+          "observed_at": "2026-08-18T04:23:54Z",
+          "time_limit": "05:00:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "allocated": null,
+          "dependencies": [
+            {
+              "id": "4110",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4110",
+          "name": "Smoke test F",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "PENDING",
+          "reason": "Dependency",
+          "node": null,
+          "submitted_at": "2026-08-17T19:05:17Z",
+          "started_at": null,
+          "ended_at": null,
+          "observed_at": "2026-08-18T04:23:54Z",
+          "time_limit": "00:05:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 2,
+            "memory": "8G"
+          },
+          "allocated": null,
+          "dependencies": [
+            {
+              "id": "4105",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        }
+      ]
+    },
+    {
+      "captured_at": "2026-08-18T04:54:56Z",
+      "jobs": [
+        {
+          "id": "4101",
+          "name": "Run A",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "RUNNING",
+          "reason": "None",
+          "node": "node-01",
+          "submitted_at": "2026-08-17T11:33:36Z",
+          "started_at": "2026-08-17T16:42:46Z",
+          "ended_at": null,
+          "observed_at": "2026-08-18T00:36:55Z",
+          "time_limit": "09:00:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "allocated": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "dependencies": [],
+          "exit_code": null
+        },
+        {
+          "id": "4102",
+          "name": "Run B",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "RUNNING",
+          "reason": "None",
+          "node": "node-01",
+          "submitted_at": "2026-08-17T15:08:35Z",
+          "started_at": "2026-08-17T20:20:43Z",
+          "ended_at": null,
+          "observed_at": "2026-08-18T00:02:43Z",
+          "time_limit": "05:00:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "allocated": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "dependencies": [],
+          "exit_code": null
+        },
+        {
+          "id": "4103",
+          "name": "Run C",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "RUNNING",
+          "reason": "None",
+          "node": "node-02",
+          "submitted_at": "2026-08-17T15:09:12Z",
+          "started_at": "2026-08-18T00:52:04Z",
+          "ended_at": null,
+          "observed_at": "2026-08-18T04:54:56Z",
+          "time_limit": "05:00:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "allocated": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "dependencies": [
+            {
+              "id": "4104",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4104",
+          "name": "Smoke test C",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "PENDING",
+          "reason": "Dependency",
+          "node": null,
+          "submitted_at": "2026-08-17T15:09:10Z",
+          "started_at": null,
+          "ended_at": null,
+          "observed_at": "2026-08-18T00:36:55Z",
+          "time_limit": "00:05:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 2,
+            "memory": "8G"
+          },
+          "allocated": null,
+          "dependencies": [
+            {
+              "id": "4101",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4105",
+          "name": "Run D",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "RUNNING",
+          "reason": "None",
+          "node": "node-01",
+          "submitted_at": "2026-08-17T19:03:47Z",
+          "started_at": "2026-08-18T00:27:50Z",
+          "ended_at": null,
+          "observed_at": "2026-08-18T04:23:54Z",
+          "time_limit": "05:00:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "allocated": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "dependencies": [
+            {
+              "id": "4106",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4106",
+          "name": "Smoke test D",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "PENDING",
+          "reason": "Dependency",
+          "node": null,
+          "submitted_at": "2026-08-17T19:03:45Z",
+          "started_at": null,
+          "ended_at": null,
+          "observed_at": "2026-08-18T00:02:43Z",
+          "time_limit": "00:05:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 2,
+            "memory": "8G"
+          },
+          "allocated": null,
+          "dependencies": [
+            {
+              "id": "4102",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4107",
+          "name": "Run E",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "PENDING",
+          "reason": "Dependency",
+          "node": null,
+          "submitted_at": "2026-08-17T19:04:32Z",
+          "started_at": null,
+          "ended_at": null,
+          "observed_at": "2026-08-18T04:54:56Z",
+          "time_limit": "05:00:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "allocated": null,
+          "dependencies": [
+            {
+              "id": "4108",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4108",
+          "name": "Smoke test E",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "PENDING",
+          "reason": "Dependency",
+          "node": null,
+          "submitted_at": "2026-08-17T19:04:30Z",
+          "started_at": null,
+          "ended_at": null,
+          "observed_at": "2026-08-18T04:54:56Z",
+          "time_limit": "00:05:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 2,
+            "memory": "8G"
+          },
+          "allocated": null,
+          "dependencies": [
+            {
+              "id": "4103",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4109",
+          "name": "Run F",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "RUNNING",
+          "reason": "None",
+          "node": "node-03",
+          "submitted_at": "2026-08-17T19:05:19Z",
+          "started_at": "2026-08-18T04:35:19Z",
+          "ended_at": null,
+          "observed_at": "2026-08-18T04:54:56Z",
+          "time_limit": "05:00:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "allocated": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "dependencies": [
+            {
+              "id": "4110",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4110",
+          "name": "Smoke test F",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "PENDING",
+          "reason": "Dependency",
+          "node": null,
+          "submitted_at": "2026-08-17T19:05:17Z",
+          "started_at": null,
+          "ended_at": null,
+          "observed_at": "2026-08-18T04:23:54Z",
+          "time_limit": "00:05:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 2,
+            "memory": "8G"
+          },
+          "allocated": null,
+          "dependencies": [
+            {
+              "id": "4105",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        }
+      ]
+    },
+    {
+      "captured_at": "2026-08-18T05:27:28Z",
+      "jobs": [
+        {
+          "id": "4101",
+          "name": "Run A",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "RUNNING",
+          "reason": "None",
+          "node": "node-01",
+          "submitted_at": "2026-08-17T11:33:36Z",
+          "started_at": "2026-08-17T16:42:46Z",
+          "ended_at": null,
+          "observed_at": "2026-08-18T00:36:55Z",
+          "time_limit": "09:00:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "allocated": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "dependencies": [],
+          "exit_code": null
+        },
+        {
+          "id": "4102",
+          "name": "Run B",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "RUNNING",
+          "reason": "None",
+          "node": "node-01",
+          "submitted_at": "2026-08-17T15:08:35Z",
+          "started_at": "2026-08-17T20:20:43Z",
+          "ended_at": null,
+          "observed_at": "2026-08-18T00:02:43Z",
+          "time_limit": "05:00:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "allocated": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "dependencies": [],
+          "exit_code": null
+        },
+        {
+          "id": "4103",
+          "name": "Run C",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "RUNNING",
+          "reason": "None",
+          "node": "node-02",
+          "submitted_at": "2026-08-17T15:09:12Z",
+          "started_at": "2026-08-18T00:52:04Z",
+          "ended_at": null,
+          "observed_at": "2026-08-18T04:54:56Z",
+          "time_limit": "05:00:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "allocated": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "dependencies": [
+            {
+              "id": "4104",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4104",
+          "name": "Smoke test C",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "PENDING",
+          "reason": "Dependency",
+          "node": null,
+          "submitted_at": "2026-08-17T15:09:10Z",
+          "started_at": null,
+          "ended_at": null,
+          "observed_at": "2026-08-18T00:36:55Z",
+          "time_limit": "00:05:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 2,
+            "memory": "8G"
+          },
+          "allocated": null,
+          "dependencies": [
+            {
+              "id": "4101",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4105",
+          "name": "Run D",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "RUNNING",
+          "reason": "None",
+          "node": "node-01",
+          "submitted_at": "2026-08-17T19:03:47Z",
+          "started_at": "2026-08-18T00:27:50Z",
+          "ended_at": null,
+          "observed_at": "2026-08-18T04:23:54Z",
+          "time_limit": "05:00:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "allocated": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "dependencies": [
+            {
+              "id": "4106",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4106",
+          "name": "Smoke test D",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "PENDING",
+          "reason": "Dependency",
+          "node": null,
+          "submitted_at": "2026-08-17T19:03:45Z",
+          "started_at": null,
+          "ended_at": null,
+          "observed_at": "2026-08-18T00:02:43Z",
+          "time_limit": "00:05:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 2,
+            "memory": "8G"
+          },
+          "allocated": null,
+          "dependencies": [
+            {
+              "id": "4102",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4107",
+          "name": "Run E",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "RUNNING",
+          "reason": "None",
+          "node": "node-04",
+          "submitted_at": "2026-08-17T19:04:32Z",
+          "started_at": "2026-08-18T04:59:50Z",
+          "ended_at": null,
+          "observed_at": "2026-08-18T05:27:28Z",
+          "time_limit": "05:00:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "allocated": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "dependencies": [
+            {
+              "id": "4108",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4108",
+          "name": "Smoke test E",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "PENDING",
+          "reason": "Dependency",
+          "node": null,
+          "submitted_at": "2026-08-17T19:04:30Z",
+          "started_at": null,
+          "ended_at": null,
+          "observed_at": "2026-08-18T04:54:56Z",
+          "time_limit": "00:05:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 2,
+            "memory": "8G"
+          },
+          "allocated": null,
+          "dependencies": [
+            {
+              "id": "4103",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4109",
+          "name": "Run F",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "RUNNING",
+          "reason": "None",
+          "node": "node-03",
+          "submitted_at": "2026-08-17T19:05:19Z",
+          "started_at": "2026-08-18T04:35:19Z",
+          "ended_at": null,
+          "observed_at": "2026-08-18T05:27:28Z",
+          "time_limit": "05:00:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "allocated": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "dependencies": [
+            {
+              "id": "4110",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4110",
+          "name": "Smoke test F",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "PENDING",
+          "reason": "Dependency",
+          "node": null,
+          "submitted_at": "2026-08-17T19:05:17Z",
+          "started_at": null,
+          "ended_at": null,
+          "observed_at": "2026-08-18T04:23:54Z",
+          "time_limit": "00:05:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 2,
+            "memory": "8G"
+          },
+          "allocated": null,
+          "dependencies": [
+            {
+              "id": "4105",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        }
+      ]
+    },
+    {
+      "captured_at": "2026-08-18T05:36:17Z",
+      "jobs": [
+        {
+          "id": "4101",
+          "name": "Run A",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "RUNNING",
+          "reason": "None",
+          "node": "node-01",
+          "submitted_at": "2026-08-17T11:33:36Z",
+          "started_at": "2026-08-17T16:42:46Z",
+          "ended_at": null,
+          "observed_at": "2026-08-18T00:36:55Z",
+          "time_limit": "09:00:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "allocated": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "dependencies": [],
+          "exit_code": null
+        },
+        {
+          "id": "4102",
+          "name": "Run B",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "RUNNING",
+          "reason": "None",
+          "node": "node-01",
+          "submitted_at": "2026-08-17T15:08:35Z",
+          "started_at": "2026-08-17T20:20:43Z",
+          "ended_at": null,
+          "observed_at": "2026-08-18T00:02:43Z",
+          "time_limit": "05:00:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "allocated": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "dependencies": [],
+          "exit_code": null
+        },
+        {
+          "id": "4103",
+          "name": "Run C",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "RUNNING",
+          "reason": "None",
+          "node": "node-02",
+          "submitted_at": "2026-08-17T15:09:12Z",
+          "started_at": "2026-08-18T00:52:04Z",
+          "ended_at": null,
+          "observed_at": "2026-08-18T04:54:56Z",
+          "time_limit": "05:00:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "allocated": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "dependencies": [
+            {
+              "id": "4104",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4104",
+          "name": "Smoke test C",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "PENDING",
+          "reason": "Dependency",
+          "node": null,
+          "submitted_at": "2026-08-17T15:09:10Z",
+          "started_at": null,
+          "ended_at": null,
+          "observed_at": "2026-08-18T00:36:55Z",
+          "time_limit": "00:05:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 2,
+            "memory": "8G"
+          },
+          "allocated": null,
+          "dependencies": [
+            {
+              "id": "4101",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4105",
+          "name": "Run D",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "RUNNING",
+          "reason": "None",
+          "node": "node-01",
+          "submitted_at": "2026-08-17T19:03:47Z",
+          "started_at": "2026-08-18T00:27:50Z",
+          "ended_at": null,
+          "observed_at": "2026-08-18T04:23:54Z",
+          "time_limit": "05:00:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "allocated": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "dependencies": [
+            {
+              "id": "4106",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4106",
+          "name": "Smoke test D",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "PENDING",
+          "reason": "Dependency",
+          "node": null,
+          "submitted_at": "2026-08-17T19:03:45Z",
+          "started_at": null,
+          "ended_at": null,
+          "observed_at": "2026-08-18T00:02:43Z",
+          "time_limit": "00:05:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 2,
+            "memory": "8G"
+          },
+          "allocated": null,
+          "dependencies": [
+            {
+              "id": "4102",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4107",
+          "name": "Run E",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "RUNNING",
+          "reason": "None",
+          "node": "node-04",
+          "submitted_at": "2026-08-17T19:04:32Z",
+          "started_at": "2026-08-18T04:59:50Z",
+          "ended_at": null,
+          "observed_at": "2026-08-18T05:36:17Z",
+          "time_limit": "05:00:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "allocated": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "dependencies": [
+            {
+              "id": "4108",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4108",
+          "name": "Smoke test E",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "PENDING",
+          "reason": "Dependency",
+          "node": null,
+          "submitted_at": "2026-08-17T19:04:30Z",
+          "started_at": null,
+          "ended_at": null,
+          "observed_at": "2026-08-18T04:54:56Z",
+          "time_limit": "00:05:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 2,
+            "memory": "8G"
+          },
+          "allocated": null,
+          "dependencies": [
+            {
+              "id": "4103",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4109",
+          "name": "Run F",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "RUNNING",
+          "reason": "None",
+          "node": "node-03",
+          "submitted_at": "2026-08-17T19:05:19Z",
+          "started_at": "2026-08-18T04:35:19Z",
+          "ended_at": null,
+          "observed_at": "2026-08-18T05:36:17Z",
+          "time_limit": "05:00:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "allocated": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "dependencies": [
+            {
+              "id": "4110",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4110",
+          "name": "Smoke test F",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "PENDING",
+          "reason": "Dependency",
+          "node": null,
+          "submitted_at": "2026-08-17T19:05:17Z",
+          "started_at": null,
+          "ended_at": null,
+          "observed_at": "2026-08-18T04:23:54Z",
+          "time_limit": "00:05:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 2,
+            "memory": "8G"
+          },
+          "allocated": null,
+          "dependencies": [
+            {
+              "id": "4105",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        }
+      ]
+    },
+    {
+      "captured_at": "2026-08-18T06:06:53Z",
+      "jobs": [
+        {
+          "id": "4101",
+          "name": "Run A",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "RUNNING",
+          "reason": "None",
+          "node": "node-01",
+          "submitted_at": "2026-08-17T11:33:36Z",
+          "started_at": "2026-08-17T16:42:46Z",
+          "ended_at": null,
+          "observed_at": "2026-08-18T00:36:55Z",
+          "time_limit": "09:00:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "allocated": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "dependencies": [],
+          "exit_code": null
+        },
+        {
+          "id": "4102",
+          "name": "Run B",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "RUNNING",
+          "reason": "None",
+          "node": "node-01",
+          "submitted_at": "2026-08-17T15:08:35Z",
+          "started_at": "2026-08-17T20:20:43Z",
+          "ended_at": null,
+          "observed_at": "2026-08-18T00:02:43Z",
+          "time_limit": "05:00:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "allocated": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "dependencies": [],
+          "exit_code": null
+        },
+        {
+          "id": "4103",
+          "name": "Run C",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "RUNNING",
+          "reason": "None",
+          "node": "node-02",
+          "submitted_at": "2026-08-17T15:09:12Z",
+          "started_at": "2026-08-18T00:52:04Z",
+          "ended_at": null,
+          "observed_at": "2026-08-18T04:54:56Z",
+          "time_limit": "05:00:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "allocated": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "dependencies": [
+            {
+              "id": "4104",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4104",
+          "name": "Smoke test C",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "PENDING",
+          "reason": "Dependency",
+          "node": null,
+          "submitted_at": "2026-08-17T15:09:10Z",
+          "started_at": null,
+          "ended_at": null,
+          "observed_at": "2026-08-18T00:36:55Z",
+          "time_limit": "00:05:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 2,
+            "memory": "8G"
+          },
+          "allocated": null,
+          "dependencies": [
+            {
+              "id": "4101",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4105",
+          "name": "Run D",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "RUNNING",
+          "reason": "None",
+          "node": "node-01",
+          "submitted_at": "2026-08-17T19:03:47Z",
+          "started_at": "2026-08-18T00:27:50Z",
+          "ended_at": null,
+          "observed_at": "2026-08-18T04:23:54Z",
+          "time_limit": "05:00:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "allocated": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "dependencies": [
+            {
+              "id": "4106",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4106",
+          "name": "Smoke test D",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "PENDING",
+          "reason": "Dependency",
+          "node": null,
+          "submitted_at": "2026-08-17T19:03:45Z",
+          "started_at": null,
+          "ended_at": null,
+          "observed_at": "2026-08-18T00:02:43Z",
+          "time_limit": "00:05:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 2,
+            "memory": "8G"
+          },
+          "allocated": null,
+          "dependencies": [
+            {
+              "id": "4102",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4107",
+          "name": "Run E",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "RUNNING",
+          "reason": "None",
+          "node": "node-04",
+          "submitted_at": "2026-08-17T19:04:32Z",
+          "started_at": "2026-08-18T04:59:50Z",
+          "ended_at": null,
+          "observed_at": "2026-08-18T06:06:53Z",
+          "time_limit": "05:00:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "allocated": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "dependencies": [
+            {
+              "id": "4108",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4108",
+          "name": "Smoke test E",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "PENDING",
+          "reason": "Dependency",
+          "node": null,
+          "submitted_at": "2026-08-17T19:04:30Z",
+          "started_at": null,
+          "ended_at": null,
+          "observed_at": "2026-08-18T04:54:56Z",
+          "time_limit": "00:05:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 2,
+            "memory": "8G"
+          },
+          "allocated": null,
+          "dependencies": [
+            {
+              "id": "4103",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4109",
+          "name": "Run F",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "RUNNING",
+          "reason": "None",
+          "node": "node-03",
+          "submitted_at": "2026-08-17T19:05:19Z",
+          "started_at": "2026-08-18T04:35:19Z",
+          "ended_at": null,
+          "observed_at": "2026-08-18T06:06:53Z",
+          "time_limit": "05:00:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "allocated": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "dependencies": [
+            {
+              "id": "4110",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4110",
+          "name": "Smoke test F",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "PENDING",
+          "reason": "Dependency",
+          "node": null,
+          "submitted_at": "2026-08-17T19:05:17Z",
+          "started_at": null,
+          "ended_at": null,
+          "observed_at": "2026-08-18T04:23:54Z",
+          "time_limit": "00:05:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 2,
+            "memory": "8G"
+          },
+          "allocated": null,
+          "dependencies": [
+            {
+              "id": "4105",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        }
+      ]
+    },
+    {
+      "captured_at": "2026-08-18T06:38:25Z",
+      "jobs": [
+        {
+          "id": "4101",
+          "name": "Run A",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "RUNNING",
+          "reason": "None",
+          "node": "node-01",
+          "submitted_at": "2026-08-17T11:33:36Z",
+          "started_at": "2026-08-17T16:42:46Z",
+          "ended_at": null,
+          "observed_at": "2026-08-18T00:36:55Z",
+          "time_limit": "09:00:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "allocated": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "dependencies": [],
+          "exit_code": null
+        },
+        {
+          "id": "4102",
+          "name": "Run B",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "RUNNING",
+          "reason": "None",
+          "node": "node-01",
+          "submitted_at": "2026-08-17T15:08:35Z",
+          "started_at": "2026-08-17T20:20:43Z",
+          "ended_at": null,
+          "observed_at": "2026-08-18T00:02:43Z",
+          "time_limit": "05:00:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "allocated": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "dependencies": [],
+          "exit_code": null
+        },
+        {
+          "id": "4103",
+          "name": "Run C",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "RUNNING",
+          "reason": "None",
+          "node": "node-02",
+          "submitted_at": "2026-08-17T15:09:12Z",
+          "started_at": "2026-08-18T00:52:04Z",
+          "ended_at": null,
+          "observed_at": "2026-08-18T04:54:56Z",
+          "time_limit": "05:00:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "allocated": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "dependencies": [
+            {
+              "id": "4104",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4104",
+          "name": "Smoke test C",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "PENDING",
+          "reason": "Dependency",
+          "node": null,
+          "submitted_at": "2026-08-17T15:09:10Z",
+          "started_at": null,
+          "ended_at": null,
+          "observed_at": "2026-08-18T00:36:55Z",
+          "time_limit": "00:05:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 2,
+            "memory": "8G"
+          },
+          "allocated": null,
+          "dependencies": [
+            {
+              "id": "4101",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4105",
+          "name": "Run D",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "RUNNING",
+          "reason": "None",
+          "node": "node-01",
+          "submitted_at": "2026-08-17T19:03:47Z",
+          "started_at": "2026-08-18T00:27:50Z",
+          "ended_at": null,
+          "observed_at": "2026-08-18T04:23:54Z",
+          "time_limit": "05:00:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "allocated": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "dependencies": [
+            {
+              "id": "4106",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4106",
+          "name": "Smoke test D",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "PENDING",
+          "reason": "Dependency",
+          "node": null,
+          "submitted_at": "2026-08-17T19:03:45Z",
+          "started_at": null,
+          "ended_at": null,
+          "observed_at": "2026-08-18T00:02:43Z",
+          "time_limit": "00:05:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 2,
+            "memory": "8G"
+          },
+          "allocated": null,
+          "dependencies": [
+            {
+              "id": "4102",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4107",
+          "name": "Run E",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "RUNNING",
+          "reason": "None",
+          "node": "node-04",
+          "submitted_at": "2026-08-17T19:04:32Z",
+          "started_at": "2026-08-18T04:59:50Z",
+          "ended_at": null,
+          "observed_at": "2026-08-18T06:38:25Z",
+          "time_limit": "05:00:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "allocated": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "dependencies": [
+            {
+              "id": "4108",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4108",
+          "name": "Smoke test E",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "PENDING",
+          "reason": "Dependency",
+          "node": null,
+          "submitted_at": "2026-08-17T19:04:30Z",
+          "started_at": null,
+          "ended_at": null,
+          "observed_at": "2026-08-18T04:54:56Z",
+          "time_limit": "00:05:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 2,
+            "memory": "8G"
+          },
+          "allocated": null,
+          "dependencies": [
+            {
+              "id": "4103",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4109",
+          "name": "Run F",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "RUNNING",
+          "reason": "None",
+          "node": "node-03",
+          "submitted_at": "2026-08-17T19:05:19Z",
+          "started_at": "2026-08-18T04:35:19Z",
+          "ended_at": null,
+          "observed_at": "2026-08-18T06:38:25Z",
+          "time_limit": "05:00:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "allocated": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "dependencies": [
+            {
+              "id": "4110",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4110",
+          "name": "Smoke test F",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "PENDING",
+          "reason": "Dependency",
+          "node": null,
+          "submitted_at": "2026-08-17T19:05:17Z",
+          "started_at": null,
+          "ended_at": null,
+          "observed_at": "2026-08-18T04:23:54Z",
+          "time_limit": "00:05:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 2,
+            "memory": "8G"
+          },
+          "allocated": null,
+          "dependencies": [
+            {
+              "id": "4105",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        }
+      ]
+    },
+    {
+      "captured_at": "2026-08-18T07:13:03Z",
+      "jobs": [
+        {
+          "id": "4101",
+          "name": "Run A",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "RUNNING",
+          "reason": "None",
+          "node": "node-01",
+          "submitted_at": "2026-08-17T11:33:36Z",
+          "started_at": "2026-08-17T16:42:46Z",
+          "ended_at": null,
+          "observed_at": "2026-08-18T00:36:55Z",
+          "time_limit": "09:00:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "allocated": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "dependencies": [],
+          "exit_code": null
+        },
+        {
+          "id": "4102",
+          "name": "Run B",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "RUNNING",
+          "reason": "None",
+          "node": "node-01",
+          "submitted_at": "2026-08-17T15:08:35Z",
+          "started_at": "2026-08-17T20:20:43Z",
+          "ended_at": null,
+          "observed_at": "2026-08-18T00:02:43Z",
+          "time_limit": "05:00:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "allocated": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "dependencies": [],
+          "exit_code": null
+        },
+        {
+          "id": "4103",
+          "name": "Run C",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "RUNNING",
+          "reason": "None",
+          "node": "node-02",
+          "submitted_at": "2026-08-17T15:09:12Z",
+          "started_at": "2026-08-18T00:52:04Z",
+          "ended_at": null,
+          "observed_at": "2026-08-18T04:54:56Z",
+          "time_limit": "05:00:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "allocated": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "dependencies": [
+            {
+              "id": "4104",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4104",
+          "name": "Smoke test C",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "PENDING",
+          "reason": "Dependency",
+          "node": null,
+          "submitted_at": "2026-08-17T15:09:10Z",
+          "started_at": null,
+          "ended_at": null,
+          "observed_at": "2026-08-18T00:36:55Z",
+          "time_limit": "00:05:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 2,
+            "memory": "8G"
+          },
+          "allocated": null,
+          "dependencies": [
+            {
+              "id": "4101",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4105",
+          "name": "Run D",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "RUNNING",
+          "reason": "None",
+          "node": "node-01",
+          "submitted_at": "2026-08-17T19:03:47Z",
+          "started_at": "2026-08-18T00:27:50Z",
+          "ended_at": null,
+          "observed_at": "2026-08-18T04:23:54Z",
+          "time_limit": "05:00:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "allocated": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "dependencies": [
+            {
+              "id": "4106",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4106",
+          "name": "Smoke test D",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "PENDING",
+          "reason": "Dependency",
+          "node": null,
+          "submitted_at": "2026-08-17T19:03:45Z",
+          "started_at": null,
+          "ended_at": null,
+          "observed_at": "2026-08-18T00:02:43Z",
+          "time_limit": "00:05:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 2,
+            "memory": "8G"
+          },
+          "allocated": null,
+          "dependencies": [
+            {
+              "id": "4102",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4107",
+          "name": "Run E",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "RUNNING",
+          "reason": "None",
+          "node": "node-04",
+          "submitted_at": "2026-08-17T19:04:32Z",
+          "started_at": "2026-08-18T04:59:50Z",
+          "ended_at": null,
+          "observed_at": "2026-08-18T07:13:03Z",
+          "time_limit": "05:00:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "allocated": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "dependencies": [
+            {
+              "id": "4108",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4108",
+          "name": "Smoke test E",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "PENDING",
+          "reason": "Dependency",
+          "node": null,
+          "submitted_at": "2026-08-17T19:04:30Z",
+          "started_at": null,
+          "ended_at": null,
+          "observed_at": "2026-08-18T04:54:56Z",
+          "time_limit": "00:05:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 2,
+            "memory": "8G"
+          },
+          "allocated": null,
+          "dependencies": [
+            {
+              "id": "4103",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4109",
+          "name": "Run F",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "RUNNING",
+          "reason": "None",
+          "node": "node-03",
+          "submitted_at": "2026-08-17T19:05:19Z",
+          "started_at": "2026-08-18T04:35:19Z",
+          "ended_at": null,
+          "observed_at": "2026-08-18T07:13:03Z",
+          "time_limit": "05:00:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "allocated": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "dependencies": [
+            {
+              "id": "4110",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4110",
+          "name": "Smoke test F",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "PENDING",
+          "reason": "Dependency",
+          "node": null,
+          "submitted_at": "2026-08-17T19:05:17Z",
+          "started_at": null,
+          "ended_at": null,
+          "observed_at": "2026-08-18T04:23:54Z",
+          "time_limit": "00:05:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 2,
+            "memory": "8G"
+          },
+          "allocated": null,
+          "dependencies": [
+            {
+              "id": "4105",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        }
+      ]
+    },
+    {
+      "captured_at": "2026-08-18T07:44:57Z",
+      "jobs": [
+        {
+          "id": "4101",
+          "name": "Run A",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "RUNNING",
+          "reason": "None",
+          "node": "node-01",
+          "submitted_at": "2026-08-17T11:33:36Z",
+          "started_at": "2026-08-17T16:42:46Z",
+          "ended_at": null,
+          "observed_at": "2026-08-18T00:36:55Z",
+          "time_limit": "09:00:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "allocated": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "dependencies": [],
+          "exit_code": null
+        },
+        {
+          "id": "4102",
+          "name": "Run B",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "RUNNING",
+          "reason": "None",
+          "node": "node-01",
+          "submitted_at": "2026-08-17T15:08:35Z",
+          "started_at": "2026-08-17T20:20:43Z",
+          "ended_at": null,
+          "observed_at": "2026-08-18T00:02:43Z",
+          "time_limit": "05:00:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "allocated": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "dependencies": [],
+          "exit_code": null
+        },
+        {
+          "id": "4103",
+          "name": "Run C",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "RUNNING",
+          "reason": "None",
+          "node": "node-02",
+          "submitted_at": "2026-08-17T15:09:12Z",
+          "started_at": "2026-08-18T00:52:04Z",
+          "ended_at": null,
+          "observed_at": "2026-08-18T04:54:56Z",
+          "time_limit": "05:00:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "allocated": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "dependencies": [
+            {
+              "id": "4104",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4104",
+          "name": "Smoke test C",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "PENDING",
+          "reason": "Dependency",
+          "node": null,
+          "submitted_at": "2026-08-17T15:09:10Z",
+          "started_at": null,
+          "ended_at": null,
+          "observed_at": "2026-08-18T00:36:55Z",
+          "time_limit": "00:05:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 2,
+            "memory": "8G"
+          },
+          "allocated": null,
+          "dependencies": [
+            {
+              "id": "4101",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4105",
+          "name": "Run D",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "RUNNING",
+          "reason": "None",
+          "node": "node-01",
+          "submitted_at": "2026-08-17T19:03:47Z",
+          "started_at": "2026-08-18T00:27:50Z",
+          "ended_at": null,
+          "observed_at": "2026-08-18T04:23:54Z",
+          "time_limit": "05:00:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "allocated": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "dependencies": [
+            {
+              "id": "4106",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4106",
+          "name": "Smoke test D",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "PENDING",
+          "reason": "Dependency",
+          "node": null,
+          "submitted_at": "2026-08-17T19:03:45Z",
+          "started_at": null,
+          "ended_at": null,
+          "observed_at": "2026-08-18T00:02:43Z",
+          "time_limit": "00:05:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 2,
+            "memory": "8G"
+          },
+          "allocated": null,
+          "dependencies": [
+            {
+              "id": "4102",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4107",
+          "name": "Run E",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "RUNNING",
+          "reason": "None",
+          "node": "node-04",
+          "submitted_at": "2026-08-17T19:04:32Z",
+          "started_at": "2026-08-18T04:59:50Z",
+          "ended_at": null,
+          "observed_at": "2026-08-18T07:44:57Z",
+          "time_limit": "05:00:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "allocated": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "dependencies": [
+            {
+              "id": "4108",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4108",
+          "name": "Smoke test E",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "PENDING",
+          "reason": "Dependency",
+          "node": null,
+          "submitted_at": "2026-08-17T19:04:30Z",
+          "started_at": null,
+          "ended_at": null,
+          "observed_at": "2026-08-18T04:54:56Z",
+          "time_limit": "00:05:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 2,
+            "memory": "8G"
+          },
+          "allocated": null,
+          "dependencies": [
+            {
+              "id": "4103",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4109",
+          "name": "Run F",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "RUNNING",
+          "reason": "None",
+          "node": "node-03",
+          "submitted_at": "2026-08-17T19:05:19Z",
+          "started_at": "2026-08-18T04:35:19Z",
+          "ended_at": null,
+          "observed_at": "2026-08-18T07:44:57Z",
+          "time_limit": "05:00:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "allocated": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "dependencies": [
+            {
+              "id": "4110",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4110",
+          "name": "Smoke test F",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "PENDING",
+          "reason": "Dependency",
+          "node": null,
+          "submitted_at": "2026-08-17T19:05:17Z",
+          "started_at": null,
+          "ended_at": null,
+          "observed_at": "2026-08-18T04:23:54Z",
+          "time_limit": "00:05:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 2,
+            "memory": "8G"
+          },
+          "allocated": null,
+          "dependencies": [
+            {
+              "id": "4105",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        }
+      ]
+    },
+    {
+      "captured_at": "2026-08-18T08:16:05Z",
+      "jobs": [
+        {
+          "id": "4101",
+          "name": "Run A",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "RUNNING",
+          "reason": "None",
+          "node": "node-01",
+          "submitted_at": "2026-08-17T11:33:36Z",
+          "started_at": "2026-08-17T16:42:46Z",
+          "ended_at": null,
+          "observed_at": "2026-08-18T00:36:55Z",
+          "time_limit": "09:00:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "allocated": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "dependencies": [],
+          "exit_code": null
+        },
+        {
+          "id": "4102",
+          "name": "Run B",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "RUNNING",
+          "reason": "None",
+          "node": "node-01",
+          "submitted_at": "2026-08-17T15:08:35Z",
+          "started_at": "2026-08-17T20:20:43Z",
+          "ended_at": null,
+          "observed_at": "2026-08-18T00:02:43Z",
+          "time_limit": "05:00:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "allocated": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "dependencies": [],
+          "exit_code": null
+        },
+        {
+          "id": "4103",
+          "name": "Run C",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "RUNNING",
+          "reason": "None",
+          "node": "node-02",
+          "submitted_at": "2026-08-17T15:09:12Z",
+          "started_at": "2026-08-18T00:52:04Z",
+          "ended_at": null,
+          "observed_at": "2026-08-18T04:54:56Z",
+          "time_limit": "05:00:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "allocated": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "dependencies": [
+            {
+              "id": "4104",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4104",
+          "name": "Smoke test C",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "PENDING",
+          "reason": "Dependency",
+          "node": null,
+          "submitted_at": "2026-08-17T15:09:10Z",
+          "started_at": null,
+          "ended_at": null,
+          "observed_at": "2026-08-18T00:36:55Z",
+          "time_limit": "00:05:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 2,
+            "memory": "8G"
+          },
+          "allocated": null,
+          "dependencies": [
+            {
+              "id": "4101",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4105",
+          "name": "Run D",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "RUNNING",
+          "reason": "None",
+          "node": "node-01",
+          "submitted_at": "2026-08-17T19:03:47Z",
+          "started_at": "2026-08-18T00:27:50Z",
+          "ended_at": null,
+          "observed_at": "2026-08-18T04:23:54Z",
+          "time_limit": "05:00:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "allocated": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "dependencies": [
+            {
+              "id": "4106",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4106",
+          "name": "Smoke test D",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "PENDING",
+          "reason": "Dependency",
+          "node": null,
+          "submitted_at": "2026-08-17T19:03:45Z",
+          "started_at": null,
+          "ended_at": null,
+          "observed_at": "2026-08-18T00:02:43Z",
+          "time_limit": "00:05:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 2,
+            "memory": "8G"
+          },
+          "allocated": null,
+          "dependencies": [
+            {
+              "id": "4102",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4107",
+          "name": "Run E",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "RUNNING",
+          "reason": "None",
+          "node": "node-04",
+          "submitted_at": "2026-08-17T19:04:32Z",
+          "started_at": "2026-08-18T04:59:50Z",
+          "ended_at": null,
+          "observed_at": "2026-08-18T08:16:05Z",
+          "time_limit": "05:00:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "allocated": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "dependencies": [
+            {
+              "id": "4108",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4108",
+          "name": "Smoke test E",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "PENDING",
+          "reason": "Dependency",
+          "node": null,
+          "submitted_at": "2026-08-17T19:04:30Z",
+          "started_at": null,
+          "ended_at": null,
+          "observed_at": "2026-08-18T04:54:56Z",
+          "time_limit": "00:05:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 2,
+            "memory": "8G"
+          },
+          "allocated": null,
+          "dependencies": [
+            {
+              "id": "4103",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4109",
+          "name": "Run F",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "RUNNING",
+          "reason": "None",
+          "node": "node-03",
+          "submitted_at": "2026-08-17T19:05:19Z",
+          "started_at": "2026-08-18T04:35:19Z",
+          "ended_at": null,
+          "observed_at": "2026-08-18T08:16:05Z",
+          "time_limit": "05:00:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "allocated": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "dependencies": [
+            {
+              "id": "4110",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4110",
+          "name": "Smoke test F",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "PENDING",
+          "reason": "Dependency",
+          "node": null,
+          "submitted_at": "2026-08-17T19:05:17Z",
+          "started_at": null,
+          "ended_at": null,
+          "observed_at": "2026-08-18T04:23:54Z",
+          "time_limit": "00:05:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 2,
+            "memory": "8G"
+          },
+          "allocated": null,
+          "dependencies": [
+            {
+              "id": "4105",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        }
+      ]
+    },
+    {
+      "captured_at": "2026-08-18T08:47:33Z",
+      "jobs": [
+        {
+          "id": "4101",
+          "name": "Run A",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "RUNNING",
+          "reason": "None",
+          "node": "node-01",
+          "submitted_at": "2026-08-17T11:33:36Z",
+          "started_at": "2026-08-17T16:42:46Z",
+          "ended_at": null,
+          "observed_at": "2026-08-18T00:36:55Z",
+          "time_limit": "09:00:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "allocated": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "dependencies": [],
+          "exit_code": null
+        },
+        {
+          "id": "4102",
+          "name": "Run B",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "RUNNING",
+          "reason": "None",
+          "node": "node-01",
+          "submitted_at": "2026-08-17T15:08:35Z",
+          "started_at": "2026-08-17T20:20:43Z",
+          "ended_at": null,
+          "observed_at": "2026-08-18T00:02:43Z",
+          "time_limit": "05:00:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "allocated": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "dependencies": [],
+          "exit_code": null
+        },
+        {
+          "id": "4103",
+          "name": "Run C",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "RUNNING",
+          "reason": "None",
+          "node": "node-02",
+          "submitted_at": "2026-08-17T15:09:12Z",
+          "started_at": "2026-08-18T00:52:04Z",
+          "ended_at": null,
+          "observed_at": "2026-08-18T04:54:56Z",
+          "time_limit": "05:00:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "allocated": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "dependencies": [
+            {
+              "id": "4104",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4104",
+          "name": "Smoke test C",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "PENDING",
+          "reason": "Dependency",
+          "node": null,
+          "submitted_at": "2026-08-17T15:09:10Z",
+          "started_at": null,
+          "ended_at": null,
+          "observed_at": "2026-08-18T00:36:55Z",
+          "time_limit": "00:05:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 2,
+            "memory": "8G"
+          },
+          "allocated": null,
+          "dependencies": [
+            {
+              "id": "4101",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4105",
+          "name": "Run D",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "RUNNING",
+          "reason": "None",
+          "node": "node-01",
+          "submitted_at": "2026-08-17T19:03:47Z",
+          "started_at": "2026-08-18T00:27:50Z",
+          "ended_at": null,
+          "observed_at": "2026-08-18T04:23:54Z",
+          "time_limit": "05:00:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "allocated": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "dependencies": [
+            {
+              "id": "4106",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4106",
+          "name": "Smoke test D",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "PENDING",
+          "reason": "Dependency",
+          "node": null,
+          "submitted_at": "2026-08-17T19:03:45Z",
+          "started_at": null,
+          "ended_at": null,
+          "observed_at": "2026-08-18T00:02:43Z",
+          "time_limit": "00:05:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 2,
+            "memory": "8G"
+          },
+          "allocated": null,
+          "dependencies": [
+            {
+              "id": "4102",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4107",
+          "name": "Run E",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "RUNNING",
+          "reason": "None",
+          "node": "node-04",
+          "submitted_at": "2026-08-17T19:04:32Z",
+          "started_at": "2026-08-18T04:59:50Z",
+          "ended_at": null,
+          "observed_at": "2026-08-18T08:47:33Z",
+          "time_limit": "05:00:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "allocated": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "dependencies": [
+            {
+              "id": "4108",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4108",
+          "name": "Smoke test E",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "PENDING",
+          "reason": "Dependency",
+          "node": null,
+          "submitted_at": "2026-08-17T19:04:30Z",
+          "started_at": null,
+          "ended_at": null,
+          "observed_at": "2026-08-18T04:54:56Z",
+          "time_limit": "00:05:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 2,
+            "memory": "8G"
+          },
+          "allocated": null,
+          "dependencies": [
+            {
+              "id": "4103",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        },
+        {
+          "id": "4109",
+          "name": "Run F",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "COMPLETED",
+          "reason": "None",
+          "node": "node-03",
+          "submitted_at": "2026-08-17T19:05:19Z",
+          "started_at": "2026-08-18T04:35:19Z",
+          "ended_at": "2026-08-18T08:42:03Z",
+          "observed_at": "2026-08-18T08:47:33Z",
+          "time_limit": "05:00:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "allocated": {
+            "gpus": 1,
+            "cpus": 4,
+            "memory": "32G"
+          },
+          "dependencies": [
+            {
+              "id": "4110",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": "0:0"
+        },
+        {
+          "id": "4110",
+          "name": "Smoke test F",
+          "cluster": "Atlas",
+          "account": "research",
+          "partition": "a100",
+          "state": "PENDING",
+          "reason": "Dependency",
+          "node": null,
+          "submitted_at": "2026-08-17T19:05:17Z",
+          "started_at": null,
+          "ended_at": null,
+          "observed_at": "2026-08-18T04:23:54Z",
+          "time_limit": "00:05:00",
+          "requested": {
+            "gpus": 1,
+            "cpus": 2,
+            "memory": "8G"
+          },
+          "allocated": null,
+          "dependencies": [
+            {
+              "id": "4105",
+              "condition": "afterok"
+            }
+          ],
+          "exit_code": null
+        }
+      ]
+    }
+  ]
+}
