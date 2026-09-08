@@ -10,9 +10,9 @@
 <body>
   <a class="skip" href="#content">Skip to content</a>
   <header class="topbar">
-    <a class="brand" href="#overview"><span class="brand-mark" aria-hidden="true">▥</span> slurm<span>lens</span></a>
-    <span class="workspace-name">Research workspace <span aria-hidden="true">/</span><span id="cluster-name">Recording</span></span>
-    <div class="top-actions"><span class="mode"><span aria-hidden="true">◷</span> Recorded session</span>
+    <a class="brand" href="#overview" aria-label="Slurm Lens overview"><svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><rect x="1" y="1" width="30" height="30" rx="8" fill="currentColor"/><g fill="var(--surface)"><rect x="8" y="8" width="4" height="10" rx="2"/><rect x="14" y="8" width="4" height="16" rx="2"/><rect x="20" y="14" width="4" height="10" rx="2"/></g></svg><span class="brand-name">slurm<span>lens</span></span></a>
+    <span class="workspace-name">Cluster workspace <span aria-hidden="true">/</span><span id="cluster-name">Recording</span></span>
+    <div class="top-actions"><span class="mode" id="connection-mode">Recorded session</span>
       <button id="theme" class="icon-button" aria-label="Switch to dark theme" title="Switch theme">◐</button>
     </div>
   </header>
@@ -32,15 +32,17 @@
     <div class="page-heading"><div><div class="eyebrow" id="workspace-eyebrow">RECORDED WORKSPACE</div><h1 id="page-title">Overview</h1><p id="page-description"></p></div>
       <button id="source-button" class="button subtle">About this recording <span aria-hidden="true">↗</span></button>
     </div>
-    <section class="replay" aria-label="Recording playback">
+    <section class="replay" aria-label="Observation history">
       <div class="replay-label"><span class="record-icon" aria-hidden="true">◷</span><div><strong id="capture-time">Loading recording…</strong><small id="capture-index">Reading local data</small></div></div>
-      <div class="replay-controls"><button id="previous" class="icon-button" aria-label="Previous snapshot">‹</button>
-        <label class="sr-only" for="frame">Recorded snapshot</label><input id="frame" type="range" min="0" max="0" value="0" step="1">
-        <button id="next" class="icon-button" aria-label="Next snapshot">›</button></div>
+      <div class="replay-controls"><button id="previous" class="icon-button" aria-label="Previous observation">‹</button>
+        <label class="sr-only" for="frame">Observation</label><input id="frame" type="range" min="0" max="0" value="0" step="1">
+        <button id="next" class="icon-button" aria-label="Next observation">›</button></div>
       <span class="replay-hint">Step through observed changes</span>
     </section>
+    <div id="connection-status" role="status" hidden></div>
+    <button id="live-toggle" class="button" hidden>Pause live updates</button>
     <div id="view" aria-busy="true"><div class="empty">Loading the recorded session…</div></div>
-    <footer class="page-footer"><span>Slurm Lens <span class="muted">/</span> v0.1</span><span>Recorded allocations. No simulated telemetry.</span></footer>
+    <footer class="page-footer"><span>Slurm Lens <span class="muted">/</span> v0.2</span><span>Recorded allocations. No simulated telemetry.</span></footer>
   </main>
   <dialog id="inspector" aria-labelledby="inspector-title"><div class="inspector-top"><span>JOB INSPECTOR</span><button id="close-inspector" class="icon-button" aria-label="Close job details">×</button></div><div id="inspector-body"></div></dialog>
   <div id="announcement" role="status" class="sr-only"></div>

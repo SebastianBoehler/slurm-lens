@@ -1,7 +1,7 @@
 use serde::{Deserialize, Serialize};
 use std::collections::HashSet;
 
-#[derive(Debug, Deserialize, Serialize)]
+#[derive(Clone, Debug, Deserialize, Serialize)]
 #[serde(deny_unknown_fields)]
 pub struct Session {
     pub schema_version: u8,
@@ -11,14 +11,18 @@ pub struct Session {
     pub frames: Vec<Frame>,
 }
 
-#[derive(Debug, Deserialize, Serialize)]
+#[derive(Clone, Debug, Deserialize, Serialize)]
 #[serde(deny_unknown_fields)]
 pub struct Frame {
     pub captured_at: String,
     pub jobs: Vec<Job>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub inventory: Option<Vec<crate::telemetry::Node>>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub metrics: Option<Vec<crate::telemetry::Metric>>,
 }
 
-#[derive(Debug, Deserialize, Serialize)]
+#[derive(Clone, Debug, Deserialize, Serialize)]
 #[serde(deny_unknown_fields)]
 pub struct Job {
     pub id: String,
@@ -38,9 +42,11 @@ pub struct Job {
     pub allocated: Option<Resources>,
     pub dependencies: Vec<Dependency>,
     pub exit_code: Option<String>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub dependency_expression: Option<String>,
 }
 
-#[derive(Debug, Deserialize, Serialize)]
+#[derive(Clone, Debug, Deserialize, Serialize)]
 #[serde(deny_unknown_fields)]
 pub struct Resources {
     pub gpus: u32,
@@ -48,7 +54,7 @@ pub struct Resources {
     pub memory: String,
 }
 
-#[derive(Debug, Deserialize, Serialize)]
+#[derive(Clone, Debug, Deserialize, Serialize)]
 #[serde(deny_unknown_fields)]
 pub struct Dependency {
     pub id: String,

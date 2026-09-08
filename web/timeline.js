@@ -24,7 +24,7 @@ export function timeline(frame, compact=false) {
     }).join('')}</div></div>`;
   }).join('');
   return `<div class="timeline-scroll"><div class="timeline-canvas" style="--lanes:${nodes.length}"><div class="time-axis"><div class="lane-heading">UTC</div><div class="ticks" style="height:${height}px">${ticks.join('')}</div></div>${lanes}<div class="capture-line"><span>SNAPSHOT ${time(frame.captured_at)}</span></div></div></div>
-    <div class="timeline-note"><span aria-hidden="true">ⓘ</span> Lanes group nodes. Columns separate concurrent allocations; they are not physical GPU slots. Node capacity was not captured. Brief jobs appear as thin marks.</div>`;
+    <div class="timeline-note"><span aria-hidden="true">ⓘ</span> Lanes group scheduler node assignments. Columns separate concurrent allocations; they are not physical GPU slots. ${frame.inventory?'Inventory is available on Clusters. Hostlist lanes represent whole multi-node allocations, not per-node GPU distribution.':'Node capacity was not captured.'} Brief jobs appear as thin marks.</div>`;
 }
 
 export function pendingList(frame) {

@@ -1,4 +1,5 @@
 import {escape, stamp, active, current, terminal, table, jobButton, allocationChart, emptyMetric} from './components.js';
+import {inventory,telemetry,liveData} from './live-views.js';
 import {timeline, pendingList} from './timeline.js';
 
 export const pages = {
@@ -10,11 +11,13 @@ export const pages = {
 };
 
 export function renderView(page, session, index) {
+  if(page==='data'&&session.live) return liveData(session,session.update);
   const frame=session.frames[index], jobs=frame.jobs;
-  if(page==='overview') return overview(session,index);
+  if(page==='overview') return overview(session,index)+(session.live||frame.metrics?telemetry(session,index):'');
   if(page==='jobs') return `<section class="panel"><div class="toolbar"><div class="tabs" role="group" aria-label="Filter by state"><button class="tab active" data-filter="all">All jobs <span>${jobs.length}</span></button><button class="tab" data-filter="RUNNING">Running</button><button class="tab" data-filter="PENDING">Pending</button><button class="tab" data-filter="COMPLETED">Completed</button></div><label class="search"><span aria-hidden="true">⌕</span><input id="job-search" type="search" placeholder="Search name, ID, or node" aria-label="Search jobs"></label></div><div id="job-table">${table(jobs,frame)}</div></section>`;
   if(page==='timeline') return `<div class="section-title"><h2>${escape(jobs[0]?.cluster||'Recording')} <span class="muted">/ Node allocations</span></h2><div class="legend"><span><i class="swatch"></i>Running / last observed</span><span><i class="swatch finished"></i>Terminal</span></div></div><div class="timeline-layout"><section class="panel timeline-panel">${timeline(frame)}</section>${pendingList(frame)}</div>`;
-  if(page==='clusters') return clusters(frame);
+  if(page==='clusters') return session.live||frame.inventory?inventory(frame)+telemetry(session,index):clusters(frame);
+  if(session.live) return liveData(session,session.update);
   return dataPage(session);
 }
 
@@ -23,13 +26,13 @@ function overview(session,index) {
   const pending=frame.jobs.filter(j=>j.state==='PENDING' && current(j,frame));
   const complete=frame.jobs.filter(j=>terminal(j));
   const allocated=running.reduce((n,j)=>n+(j.allocated?.gpus||0),0);
-  const waiting=pending.filter(j=>j.dependencies.length);
+  const waiting=pending.filter(j=>j.dependencies.length||j.dependency_expression);
   return `<div class="stats-strip">
-    ${[[running.length,'Running jobs','Observed at this snapshot'],[pending.length,'Pending jobs',`${waiting.length} waiting on dependencies`],[allocated,'GPUs allocated','To observed running jobs'],[complete.length,'Terminal jobs','Retained recorded outcomes']].map(([n,label,sub])=>`<div class="stat"><span>${label}</span><strong>${n}</strong><small>${sub}</small></div>`).join('')}
-  </div><div class="overview-grid"><section class="panel chart-panel"><div class="section-title"><div><h2>Allocated GPUs</h2><p class="muted">Observed counts across the recording · not utilization</p></div><a class="text-link" href="#timeline">View timeline ↗</a></div>${allocationChart(session.frames,index)}<div class="chart-caption"><span class="legend"><i class="swatch"></i>Recorded allocation</span><span>Dots are captures; intervals between them are unknown.</span></div></section>
-  <section class="panel attention-panel"><div class="section-title"><h2>Queue context</h2><span class="count">${pending.length}</span></div>${waiting.length?`<div class="attention-summary"><span aria-hidden="true">↳</span><div><strong>${waiting.length} jobs waiting on predecessors</strong><p>Success dependencies control when these jobs become eligible.</p></div></div>${waiting.slice(0,2).map(j=>`<div class="attention-row">${jobButton(j)}<span>Inspect dependency →</span></div>`).join('')}`:'<div class="attention-summary"><span aria-hidden="true">✓</span><div><strong>No recorded dependency blockers</strong><p>Choose an earlier snapshot to explore the overnight queue.</p></div></div>'}<a class="text-link" href="#jobs">Explore all jobs →</a></section></div>
-  <section class="panel"><div class="panel-heading"><h2>Jobs at this snapshot <span class="count">${frame.jobs.length}</span></h2><a class="text-link" href="#jobs">Filter jobs ↗</a></div>${table([...running,...pending,...frame.jobs.filter(j=>!running.includes(j)&&!pending.includes(j))],frame)}</section>
-  <div class="coverage-strip"><span aria-hidden="true">◈</span><div><strong>Allocation is visible. Utilization is not collected.</strong><span> GPU activity, VRAM usage and CPU/RAM usage need a separate telemetry source.</span></div><a href="#data" class="text-link">Data coverage →</a></div>`;
+    ${[[running.length,'Running jobs',session.live?'At selected observation':'Observed at this snapshot'],[pending.length,'Pending jobs',`${waiting.length} waiting on dependencies`],[allocated,'GPUs allocated','To observed running jobs'],[complete.length,'Terminal jobs','Retained observed outcomes']].map(([n,label,sub])=>`<div class="stat"><span>${label}</span><strong>${n}</strong><small>${sub}</small></div>`).join('')}
+  </div><div class="overview-grid"><section class="panel chart-panel"><div class="section-title"><div><h2>Allocated GPUs</h2><p class="muted">Observed allocation history · not utilization</p></div><a class="text-link" href="#timeline">View timeline ↗</a></div>${allocationChart(session.frames,index)}<div class="chart-caption"><span class="legend"><i class="swatch"></i>Observed allocation</span><span>Dots are captures; intervals between them are unknown.</span></div></section>
+  <section class="panel attention-panel"><div class="section-title"><h2>Queue context</h2><span class="count">${pending.length}</span></div>${waiting.length?`<div class="attention-summary"><span aria-hidden="true">↳</span><div><strong>${waiting.length} jobs waiting on predecessors</strong><p>Dependency conditions control when these jobs become eligible.</p></div></div>${waiting.slice(0,2).map(j=>`<div class="attention-row">${jobButton(j)}<span>Inspect dependency →</span></div>`).join('')}`:'<div class="attention-summary"><span aria-hidden="true">✓</span><div><strong>No recorded dependency blockers</strong><p>No dependency blockers were observed for these jobs.</p></div></div>'}<a class="text-link" href="#jobs">Explore all jobs →</a></section></div>
+  <section class="panel"><div class="panel-heading"><h2>Jobs at this observation <span class="count">${frame.jobs.length}</span></h2><a class="text-link" href="#jobs">Filter jobs ↗</a></div>${table([...running,...pending,...frame.jobs.filter(j=>!running.includes(j)&&!pending.includes(j))],frame)}</section>
+  ${session.live||frame.metrics?'':`<div class="coverage-strip"><span aria-hidden="true">◈</span><div><strong>Allocation is visible. Utilization is not collected.</strong><span> GPU activity, VRAM usage and CPU/RAM usage need a separate telemetry source.</span></div><a href="#data" class="text-link">Data coverage →</a></div>`}`;
 }
 
 function clusters(frame) {
@@ -42,5 +45,10 @@ function clusters(frame) {
 
 function dataPage(session) {
   const rows=[['Job states and queue reasons','Recorded','From scoped scheduler responses.'],['Requests and allocations','Recorded','GPU and CPU counts; requested and allocated RAM.'],['Node placement and timestamps','Recorded','Actual starts and terminal ends where available.'],['Dependencies','Partial','Observed conditions retained after Slurm clears them; earlier edges may be absent.'],['Node capacity and physical GPU slots','Not collected','Node lanes cannot be interpreted as physical GPU lanes.'],['GPU, VRAM, CPU and RAM usage','Not collected','No hardware telemetry was included.'],['Future placement and start estimates','Not collected','Pending jobs have no assigned timeline position.'],['Other users and cluster-wide inventory','Not collected','This recording covers one research workload.']];
+  if(session.frames.some(f=>f.inventory)) {
+    rows[4]=['Node inventory','Recorded','Configured CPU, RAM, GRES and node state; physical slot mapping is not inferred.'];
+    rows[7]=['Scheduler visibility','Partial','Determined by the collector credentials; not proof of full administrator visibility.'];
+  }
+  if(session.frames.some(f=>f.metrics)) rows[5]=['GPU, VRAM, CPU and RAM usage','Recorded','Exporter measurements with their own sample timestamps; no per-job attribution.'];
   return `<section class="panel source-panel"><div class="section-title"><div><h2>${escape(session.title)}</h2><p class="muted">${session.frames.length} snapshots · ${stamp(session.frames[0].captured_at)} — ${stamp(session.frames.at(-1).captured_at)}</p></div><a class="button" href="/api/session" download="slurm-lens-session.json">↓ Export recording</a></div><p>${escape(session.description)}</p><div class="source-facts"><span>Source <strong>Recorded Slurm responses</strong></span><span>Connection <strong>Offline / local</strong></span><span>Time zone <strong>UTC</strong></span></div></section><section class="panel"><div class="panel-heading"><h2>Data coverage</h2></div><div class="table-scroll"><table><thead><tr><th>Information</th><th>Availability</th><th>What it means</th></tr></thead><tbody>${rows.map(([name,state,desc])=>`<tr><td><strong>${name}</strong></td><td><span class="badge ${state==='Recorded'?'completed':state==='Partial'?'pending':'neutral'}">${state}</span></td><td>${desc}</td></tr>`).join('')}</tbody></table></div></section>`;
 }
