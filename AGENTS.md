@@ -1,6 +1,6 @@
 # Slurm Lens
 
-- This is a standalone local viewer. Do not import a research project's code,
+- This is a standalone read-only dashboard with live REST and recording modes. Do not import a research project's code,
   credentials, raw logs, hostnames, user identities or scientific artifacts.
 - Keep source files focused and around 300 lines or fewer.
 - Allocation, actual utilization, node inventory and device identity are distinct.

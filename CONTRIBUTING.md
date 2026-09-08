@@ -1,8 +1,8 @@
 # Contributing to Slurm Lens
 
-Slurm Lens is currently an offline recording viewer. Open an issue before adding
-live collection or job control so the permission and data model boundaries can
-be discussed explicitly. Small fixes and documentation improvements are welcome.
+Slurm Lens supports live REST collection and offline recording playback. Open an
+issue before adding job control or new collection sources so their permission
+and data model boundaries can be discussed explicitly. Small fixes and documentation improvements are welcome.
 
 ## Local development
 

@@ -1,0 +1,12 @@
+{
+  "cluster": "your-cluster-name",
+  "slurm_url": "https://slurm.example.org",
+  "slurm_user": "your-slurm-user",
+  "slurm_token_env": "SLURM_LENS_SLURM_TOKEN",
+  "poll_seconds": 30,
+  "history_frames": 120,
+  "prometheus": {
+    "url": "https://prometheus.example.org",
+    "token_env": "SLURM_LENS_PROMETHEUS_TOKEN"
+  }
+}

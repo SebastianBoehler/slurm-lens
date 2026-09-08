@@ -1,6 +1,7 @@
 # Interface gallery
 
-Actual browser captures of the local application with its anonymized recording.
+Browser captures of the initial v0.1 interface with its anonymized recording.
+For v0.2 live connections, see [the setup guide](live.md).
 These are viewport screenshots; longer pages and the inspector scroll. The
 inspector captures show a different recorded snapshot from the page captures.
 

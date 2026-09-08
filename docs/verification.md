@@ -1,4 +1,7 @@
-# Initial verification
+# Initial v0.1 verification
+
+Historical measurements for the recording-only build. The live transport adds
+networking dependencies; these binary and memory figures do not describe v0.2.
 
 Checked locally on macOS / Apple Silicon, 8 September 2026.
 

@@ -3,13 +3,13 @@
 [![Checks](https://github.com/SebastianBoehler/slurm-lens/actions/workflows/ci.yml/badge.svg)](https://github.com/SebastianBoehler/slurm-lens/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
-A small, local workspace for understanding Slurm jobs. Browse allocations, follow
-dependencies, and step through recorded scheduler snapshots without installing
-anything on a cluster.
+A lightweight Rust dashboard for Slurm jobs, node inventory, and hardware metrics.
+Follow live observations from Slurm REST and Prometheus, pause to inspect history,
+or explore an offline recording.
 
-**v0.1 is an offline recording viewer.** It does not connect over SSH, submit jobs,
-or collect live telemetry. The included session comes from real scheduler captures,
-with identifiers and dates anonymized.
+**Live connections and recording playback are separate modes.** The default opens
+an anonymized recording; live mode requires your own configured endpoints. This
+project is read-only and does not submit or cancel jobs.
 
 ![Recorded workspace in light mode](docs/overview-light.png)
 
@@ -34,8 +34,8 @@ cargo run --release --locked
 
 Open **http://127.0.0.1:4317**. The server binds only to loopback. Stop with Ctrl+C.
 All assets and the example recording are embedded in the binary; it can be run
-from any directory. No Node runtime, frontend build, CDN, or external service is
-needed to run the application.
+from any directory. No Node runtime, frontend build, or CDN is required. Recording
+mode is offline; live mode connects only to the configured upstream services.
 
 To load a different recording in the [version 1 format](docs/recordings.md):
 
@@ -46,7 +46,23 @@ cargo run --release -- --data ./local/session.json
 Malformed recordings fail with an error; they are not replaced with example data.
 Keep private recordings in the gitignored `local/` directory.
 
-## Try it
+## Connect live
+
+Copy [the connection example](examples/connection.json) to `local/connection.json`,
+set the exact cluster, endpoints and Slurm user, and supply the named credential
+environment variables. The first adapter supports **Slurm REST v0.0.45**. Prometheus
+is optional. See [live setup and deployment boundaries](docs/live.md).
+
+```sh
+cargo run --release --locked -- --live local/connection.json
+```
+
+The backend collects once per interval and shares its cache through server-sent
+events. Use **Pause live updates**, the history slider, and **Back to live** to
+inspect observations without stopping collection. Errors and stale data stay
+visible. History is bounded and in memory; export it before stopping the process.
+
+## Try the included recording
 
 1. Open **Jobs**, select **Pending**, and search for `Run C`.
 2. Select the job to see its requested resources and success dependency.
@@ -67,7 +83,7 @@ Keep private recordings in the gitignored `local/` directory.
 | Available data | Provenance, coverage, limitations, and JSON export |
 | Job inspector | Resources, dependency links, and recorded timing |
 
-## Honest boundaries
+## Recording boundaries
 
 - The example has 21 captures and 10 observed jobs from one overnight workload.
 - Node lanes group recorded allocations. Concurrent allocations are packed into
@@ -83,11 +99,14 @@ Keep private recordings in the gitignored `local/` directory.
 
 ## Implementation
 
-Rust validates and serves the recording and embedded assets with `tiny_http`.
-The browser fetches one compact JSON document, then filters and renders locally
-using small native ES modules, semantic HTML, CSS and SVG. There are no continuous
-timers, network polling loops or animation loops. The Rust process never launches
-shell commands. Only GET and HEAD requests are accepted.
+Rust uses Axum/Tokio for HTTP and streaming, and Reqwest with Rustls for upstream
+HTTPS. Native ES modules, semantic HTML, CSS and SVG render the interface without
+a frontend framework or build step. Recording mode fetches once; live mode uses
+one shared collector and a browser event stream. The process never launches shell
+commands. Only GET and HEAD requests are accepted.
+
+The service binds to loopback. It is suitable for a single operator or private
+tunnel; shared-user authentication and public deployment are not implemented.
 
 Accessibility includes keyboard-operable controls, visible focus, text alongside
 status colors, a focus-contained native job dialog, reduced-motion support and
@@ -106,10 +125,9 @@ npm test
 Node is used only for dependency-free frontend tests. Rust embeds assets at
 compile time: rebuild/restart the server and reload the page after editing them.
 
-The next integration boundary is a read-only, explicitly scoped SSH collector.
-It should batch scheduler reads, preserve their provenance and timestamps, and
-represent stale or missing data explicitly. Full inventory and device telemetry
-are separate data sources; neither should be fabricated from allocations.
+The local HTTP integration check is `python3 tests/live_http.py` after a release
+build, with port 4317 free. It tests protocol fixtures, not a production cluster.
+See [live documentation](docs/live.md) for supported sources and current limits.
 
 ## Contributing
 

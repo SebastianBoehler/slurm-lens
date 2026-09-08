@@ -14,7 +14,13 @@ cluster per recording; cluster federation and combined inventories are not model
 | `timezone` | `UTC` |
 | `frames` | Nonempty sequence of captures, ordered oldest first |
 
-Each frame contains `captured_at` and a `jobs` array. Timestamps use the exact form
+Each frame contains `captured_at` and a `jobs` array. Live exports can also include
+`inventory` (node records) and `metrics` (Prometheus series). Both are optional;
+their exact types are in `src/telemetry.rs`. Metrics preserve their series identity
+and result timestamp. Jobs can include an optional `dependency_expression` string
+for scheduler conditions that must not be simplified.
+
+ Timestamps use the exact form
 `YYYY-MM-DDTHH:MM:SSZ`. A capture is not necessarily an atomic cluster snapshot:
 the source may read several jobs sequentially.
 
