@@ -4,6 +4,10 @@ version = "0.1.0"
 edition = "2024"
 description = "A local, read-only workspace for understanding recorded Slurm jobs"
 license = "MIT"
+repository = "https://github.com/SebastianBoehler/slurm-lens"
+readme = "README.md"
+keywords = ["slurm", "hpc", "dashboard", "gpu"]
+categories = ["visualization"]
 
 [dependencies]
 serde = { version = "1", features = ["derive"] }

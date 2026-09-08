@@ -1,5 +1,8 @@
 # Slurm Lens
 
+[![Checks](https://github.com/SebastianBoehler/slurm-lens/actions/workflows/ci.yml/badge.svg)](https://github.com/SebastianBoehler/slurm-lens/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+
 A small, local workspace for understanding Slurm jobs. Browse allocations, follow
 dependencies, and step through recorded scheduler snapshots without installing
 anything on a cluster.
@@ -17,12 +20,16 @@ with identifiers and dates anonymized.
 
 </details>
 
+[Browse all pages in light and dark themes](docs/screenshots.md).
+
 ## Run
 
 Requires a current stable Rust toolchain (tested with Rust 1.98).
 
 ```sh
-cargo run --release
+git clone https://github.com/SebastianBoehler/slurm-lens.git
+cd slurm-lens
+cargo run --release --locked
 ```
 
 Open **http://127.0.0.1:4317**. The server binds only to loopback. Stop with Ctrl+C.
@@ -48,6 +55,17 @@ Keep private recordings in the gitignored `local/` directory.
 5. Open **Clusters** to see the observed nodes and allocated resources.
 6. Toggle the moon/sun button; the light/dark preference persists locally.
 7. Open **Available data** for provenance, limitations, and a recording export.
+
+## Pages
+
+| Page | What you can explore |
+| --- | --- |
+| Overview | Recorded job counts and sampled GPU allocations |
+| Jobs | State filters, search, resource requests, and job inspection |
+| Timeline | Time on the vertical axis, node allocation lanes horizontally |
+| Clusters | Nodes observed in the recording and their allocations |
+| Available data | Provenance, coverage, limitations, and JSON export |
+| Job inspector | Resources, dependency links, and recorded timing |
 
 ## Honest boundaries
 
@@ -93,4 +111,12 @@ It should batch scheduler reads, preserve their provenance and timestamps, and
 represent stale or missing data explicitly. Full inventory and device telemetry
 are separate data sources; neither should be fabricated from allocations.
 
-MIT licensed.
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for the project layout, checks, and data
+privacy expectations. Report bugs or propose improvements through
+[GitHub issues](https://github.com/SebastianBoehler/slurm-lens/issues).
+See [verification notes](docs/verification.md) for the initial checks and local
+performance measurements.
+
+Licensed under the [MIT License](LICENSE).
