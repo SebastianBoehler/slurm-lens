@@ -8,6 +8,15 @@ anything on a cluster.
 or collect live telemetry. The included session comes from real scheduler captures,
 with identifiers and dates anonymized.
 
+![Recorded workspace in light mode](docs/overview-light.png)
+
+<details>
+<summary>Dark theme</summary>
+
+![Recorded workspace in dark mode](docs/overview-dark.png)
+
+</details>
+
 ## Run
 
 Requires a current stable Rust toolchain (tested with Rust 1.98).
