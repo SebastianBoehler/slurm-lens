@@ -64,3 +64,14 @@ test('live inventory and telemetry labels are escaped and zero remains measured 
   assert.match(html,/&lt;img&gt;/);assert.match(html,/&lt;script&gt;/);assert.match(html,/>0<\/td>/);
   assert.ok(!html.includes('<script>'));
 });
+
+
+test('Slurm state flags retain the pending category and queue reason',async()=>{
+  const {badge,reason}=await import('../web/components.js');
+  const frame=structuredClone(session.frames[0]);
+  const job=frame.jobs.find(j=>j.state==='PENDING');
+  job.state='PENDING+REQUEUE_HOLD';job.reason='Dependency';
+  assert.match(badge(job,frame),/badge pending/);
+  assert.equal(reason(job),'Waiting for predecessor');
+  assert.match(renderView('timeline',{...session,frames:[frame]},0),/Waiting for allocation/);
+});

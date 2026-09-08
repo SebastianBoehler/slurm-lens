@@ -2,7 +2,7 @@
 
 Verified locally on macOS / Apple Silicon, 8 September 2026.
 
-- Eight Rust tests and seven frontend tests passed; formatting and Clippy passed.
+- Eight Rust tests and eight frontend tests passed; formatting and Clippy passed.
 - Local HTTP protocol fixtures exercised the Slurm jobs/nodes endpoints, token
   header, Prometheus vectors, SSE, shared cache, HTTP 503 outage, stale retention,
   recovery, disappearance without inferred completion, and request guards.

@@ -1,13 +1,14 @@
 export const escape = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 export const time = value => value ? new Date(value).toLocaleTimeString('en-GB', {timeZone:'UTC',hour:'2-digit',minute:'2-digit'}) : 'Not recorded';
 export const stamp = (value,seconds=false) => value ? new Date(value).toLocaleString('en-GB', {timeZone:'UTC',month:'short',day:'numeric',hour:'2-digit',minute:'2-digit',...(seconds?{second:'2-digit'}:{})})+' UTC' : 'Not recorded';
+export const hasState = (job,state) => job.state.split('+').includes(state);
 export const terminal = job => job.state.split('+').some(s=>['COMPLETED','FAILED','CANCELLED','TIMEOUT','NODE_FAIL','OUT_OF_MEMORY','PREEMPTED','BOOT_FAIL','DEADLINE'].includes(s));
 export const current = (job, frame) => job.observed_at === frame.captured_at;
-export const active = (job, frame) => current(job,frame) && job.state.split('+').includes('RUNNING');
+export const active = (job, frame) => current(job,frame) && hasState(job,'RUNNING');
 export const condition = value => ({afterok:'On success',afternotok:'On failure',afterany:'After completion'}[value] || value);
-export const reason = job => job.state === 'PENDING' ? ({Dependency:'Waiting for predecessor',Resources:'Waiting for resources',Priority:'Waiting for priority'}[job.reason] || job.reason) : terminal(job) ? (job.state === 'COMPLETED' ? 'Finished successfully' : job.state.replaceAll('_',' ').toLowerCase()) : 'Resources allocated';
+export const reason = job => hasState(job,'PENDING') ? ({Dependency:'Waiting for predecessor',Resources:'Waiting for resources',Priority:'Waiting for priority'}[job.reason] || job.reason) : terminal(job) ? (hasState(job,'COMPLETED') ? 'Finished successfully' : job.state.replaceAll('_',' ').toLowerCase()) : 'Resources allocated';
 export function badge(job, frame) {
-  const style = job.state.split('+').includes('RUNNING') ? 'running' : job.state === 'PENDING' ? 'pending' : job.state === 'COMPLETED' ? 'completed' : 'failed';
+  const style = hasState(job,'RUNNING') ? 'running' : hasState(job,'PENDING') ? 'pending' : hasState(job,'COMPLETED') ? 'completed' : 'failed';
   const label = {RUNNING:'Running',PENDING:'Pending',COMPLETED:'Completed'}[job.state] || job.state.replaceAll('_',' ').toLowerCase();
   const stale = !current(job,frame) && !terminal(job);
   return `<span class="badge ${style}"><span aria-hidden="true">${{running:'●',pending:'◷',completed:'✓',failed:'!'}[style]}</span>${stale?'Last seen ':''}${escape(label)}</span>`;

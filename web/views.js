@@ -1,4 +1,4 @@
-import {escape, stamp, active, current, terminal, table, jobButton, allocationChart, emptyMetric} from './components.js';
+import {hasState, escape, stamp, active, current, terminal, table, jobButton, allocationChart, emptyMetric} from './components.js';
 import {inventory,telemetry,liveData} from './live-views.js';
 import {timeline, pendingList} from './timeline.js';
 
@@ -23,7 +23,7 @@ export function renderView(page, session, index) {
 
 function overview(session,index) {
   const frame=session.frames[index], running=frame.jobs.filter(j=>active(j,frame));
-  const pending=frame.jobs.filter(j=>j.state==='PENDING' && current(j,frame));
+  const pending=frame.jobs.filter(j=>hasState(j,'PENDING') && current(j,frame));
   const complete=frame.jobs.filter(j=>terminal(j));
   const allocated=running.reduce((n,j)=>n+(j.allocated?.gpus||0),0);
   const waiting=pending.filter(j=>j.dependencies.length||j.dependency_expression);

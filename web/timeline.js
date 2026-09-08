@@ -1,4 +1,4 @@
-import {escape, time, active, current, terminal, jobButton, badge} from './components.js';
+import {hasState, escape, time, active, current, terminal, jobButton, badge} from './components.js';
 import {packAllocations} from './layout.js';
 
 export function timeline(frame, compact=false) {
@@ -28,7 +28,7 @@ export function timeline(frame, compact=false) {
 }
 
 export function pendingList(frame) {
-  const jobs=frame.jobs.filter(j=>j.state==='PENDING'&&current(j,frame));
+  const jobs=frame.jobs.filter(j=>hasState(j,'PENDING')&&current(j,frame));
   const stale=frame.jobs.filter(j=>!terminal(j)&&!current(j,frame));
   const rows=list=>list.map(j=>`<div class="pending-row"><div>${jobButton(j)}<small>${j.requested?.gpus??'—'} GPU requested</small></div>${badge(j,frame)}</div>`).join('');
   return `<section class="pending-region"><div class="section-title"><h2>Waiting for allocation</h2><span class="count">${jobs.length}</span></div><p class="muted">No start time or GPU placement is promised.</p>${jobs.length?rows(jobs):'<p class="empty-inline">No pending jobs observed in this snapshot.</p>'}${stale.length?`<div class="section-title lower-title"><h2>Not observed this snapshot</h2></div><p class="muted">Last-known states; current outcomes are unknown.</p>${rows(stale)}`:''}</section>`;
