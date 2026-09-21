@@ -30,16 +30,3 @@ export function table(jobs, frame) {
 export function emptyMetric(label, description) {
   return `<div class="missing-metric"><span>${label}</span><strong>Not collected</strong><small>${description}</small></div>`;
 }
-export function allocationChart(frames, index) {
-  const values = frames.slice(0,index+1).map(f=>f.jobs.filter(j=>active(j,f)).reduce((n,j)=>n+(j.allocated?.gpus||0),0));
-  const W=640,H=142,max=Math.max(4,...values), start=new Date(frames[0].captured_at).getTime();
-  const finish=new Date(frames.at(-1).captured_at).getTime();
-  const x=i=>40+(new Date(frames[i].captured_at).getTime()-start)/Math.max(1,finish-start)*(W-60);
-  const y=v=>H-24-v/max*(H-45);
-  let path=`M ${x(0)} ${y(values[0])}`;
-  values.slice(1).forEach((v,i)=>{path+=` H ${x(i+1)} V ${y(v)}`;});
-  return `<svg class="allocation-chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="Recorded allocated GPU count: ${values.join(', ')}. Changes between snapshots are not observed.">
-    ${[0,2,4].map(n=>`<line x1="40" x2="620" y1="${y(n)}" y2="${y(n)}" class="chart-grid"/><text x="16" y="${y(n)+4}">${n}</text>`).join('')}
-    <path d="${path}" class="chart-line"/>${values.map((v,i)=>`<circle cx="${x(i)}" cy="${y(v)}" r="3" class="chart-dot"/>`).join('')}
-    <text x="40" y="139">${time(frames[0].captured_at)}</text><text x="620" y="139" text-anchor="end">${time(frames.at(-1).captured_at)} UTC</text></svg>`;
-}

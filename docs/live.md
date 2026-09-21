@@ -57,7 +57,7 @@ if it belongs to that older scheduler observation.
 ## Live and history
 
 Pause freezes the displayed observations while the server continues collecting.
-The history slider also pauses following. **Back to live** returns to the newest
+Selecting a chart observation or focusing the history time picker also pauses following. **Back to live** returns to the newest
 observation. A disconnected stream reconnects automatically and receives current
 state. Missed intermediate browser observations remain gaps; refresh retrieves the
 server's retained history.

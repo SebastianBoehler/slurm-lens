@@ -75,3 +75,27 @@ test('Slurm state flags retain the pending category and queue reason',async()=>{
   assert.equal(reason(job),'Waiting for predecessor');
   assert.match(renderView('timeline',{...session,frames:[frame]},0),/Waiting for allocation/);
 });
+
+const {historyValues,pointPositions,nearestObservation,historyChart}=await import('../web/history.js');
+test('history uses actual elapsed time and selects the nearest observed timestamp',()=>{
+  const frames=['00:00:00','00:01:00','01:00:00'].map(t=>({captured_at:`2026-09-08T${t}Z`,jobs:[]}));
+  assert.deepEqual(pointPositions(frames),[0,1/60,1]);
+  assert.equal(nearestObservation(frames,.1),1);
+  assert.equal(nearestObservation(frames,.9),2);
+  assert.equal(nearestObservation(frames,-1),0);
+  assert.equal(nearestObservation(frames,2),2);
+  assert.deepEqual(pointPositions([frames[0]]),[.5]);
+});
+test('history measures sampled allocations and jobs without counting stale observations',()=>{
+  const frame=structuredClone(session.frames[0]);
+  const running=frame.jobs.find(j=>j.state==='RUNNING');
+  frame.jobs=[running,{...running,id:'stale',observed_at:'2020-01-01T00:00:00Z'},
+    {...running,id:'pending',state:'PENDING+REQUEUE_HOLD',allocated:null}];
+  assert.deepEqual(historyValues([frame],'gpus'),[running.allocated.gpus]);
+  assert.deepEqual(historyValues([frame],'running'),[1]);
+  assert.deepEqual(historyValues([frame],'pending'),[1]);
+  const zero={...frame,jobs:[]};
+  assert.match(historyChart([zero],0,'gpus'),/over time: 0 to 0/);
+  assert.ok(!historyChart([zero],0,'gpus').includes('NaN'));
+  assert.match(historyChart([],0,'gpus'),/first observation/);
+});

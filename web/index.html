@@ -5,7 +5,7 @@
   <meta name="color-scheme" content="light dark">
   <title>Slurm Lens · Recorded workspace</title>
   <link rel="icon" href="/favicon.svg"><link rel="stylesheet" href="/styles.css">
-  <link rel="stylesheet" href="/timeline.css"><script type="module" src="/app.js"></script>
+  <link rel="stylesheet" href="/timeline.css"><link rel="stylesheet" href="/history.css"><script type="module" src="/app.js"></script>
 </head>
 <body>
   <a class="skip" href="#content">Skip to content</a>
@@ -32,15 +32,18 @@
     <div class="page-heading"><div><div class="eyebrow" id="workspace-eyebrow">RECORDED WORKSPACE</div><h1 id="page-title">Overview</h1><p id="page-description"></p></div>
       <button id="source-button" class="button subtle">About this recording <span aria-hidden="true">↗</span></button>
     </div>
-    <section class="replay" aria-label="Observation history">
-      <div class="replay-label"><span class="record-icon" aria-hidden="true">◷</span><div><strong id="capture-time">Loading recording…</strong><small id="capture-index">Reading local data</small></div></div>
-      <div class="replay-controls"><button id="previous" class="icon-button" aria-label="Previous observation">‹</button>
-        <label class="sr-only" for="frame">Observation</label><input id="frame" type="range" min="0" max="0" value="0" step="1">
-        <button id="next" class="icon-button" aria-label="Next observation">›</button></div>
-      <span class="replay-hint">Step through observed changes</span>
+    <section class="panel history-panel" id="history" aria-labelledby="history-heading">
+      <div class="history-heading"><div><h2 id="history-heading">Workload history</h2><p id="history-range">Loading observations…</p></div>
+        <label for="history-measure">Show metric<select id="history-measure"><option value="gpus">Allocated GPUs</option><option value="running">Running jobs</option><option value="pending">Pending jobs</option></select></label>
+      </div>
+      <div class="history-chart" id="history-chart"><p class="history-empty">Loading history…</p></div>
+      <p class="history-caption" id="history-help">Select a point or choose a time to inspect it. Marks show observations; gaps are unknown.</p>
+      <div class="history-inspection"><div class="history-selected"><strong id="history-value">—</strong><span id="capture-time">Loading recording…</span><small id="capture-index">Reading local data</small></div>
+        <label for="history-time">Inspect observation<select id="history-time" aria-describedby="history-help" disabled><option>Waiting for data</option></select></label>
+        <div class="history-controls"><button id="latest" class="button">Show latest</button><button id="live-toggle" class="button" hidden>Pause live updates</button></div>
+      </div>
     </section>
     <div id="connection-status" role="status" hidden></div>
-    <button id="live-toggle" class="button" hidden>Pause live updates</button>
     <div id="view" aria-busy="true"><div class="empty">Loading the recorded session…</div></div>
     <footer class="page-footer"><span>Slurm Lens <span class="muted">/</span> v0.2</span><span>Recorded allocations. No simulated telemetry.</span></footer>
   </main>

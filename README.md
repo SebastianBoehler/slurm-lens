@@ -58,16 +58,16 @@ cargo run --release --locked -- --live local/connection.json
 ```
 
 The backend collects once per interval and shares its cache through server-sent
-events. Use **Pause live updates**, the history slider, and **Back to live** to
+events. Use **Pause live updates**, the history chart, and **Back to live** to
 inspect observations without stopping collection. Errors and stale data stay
 visible. History is bounded and in memory; export it before stopping the process.
 
 ## Try the included recording
 
-1. Open **Jobs**, select **Pending**, and search for `Run C`.
+1. Choose the first time in **Inspect observation**, then open **Jobs**, select **Pending**, and search for `Run C`.
 2. Select the job to see its requested resources and success dependency.
 3. Follow **Smoke test C** in the inspector to trace the predecessor chain.
-4. Open **Timeline** and step through the recording with the snapshot slider.
+4. Open **Timeline** and select observations in **Workload history**.
 5. Open **Clusters** to see the observed nodes and allocated resources.
 6. Toggle the moon/sun button; the light/dark preference persists locally.
 7. Open **Available data** for provenance, limitations, and a recording export.

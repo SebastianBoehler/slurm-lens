@@ -1,10 +1,12 @@
 import {escape, stamp, table} from './components.js';
 import {pages, renderView} from './views.js';
 import {inspector} from './inspector.js';
+import {updateHistory,nearestObservation} from './history.js';
 import {mergeUpdate,healthLabel} from './live-state.js';
 
 const $=id=>document.getElementById(id);
 let liveCache, update, following=true, disconnected=false, revision=-1;
+let measure='gpus';
 let session, index=0, page='overview', filter='all', query='', selected=null;
 let theme=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';
 try { theme=localStorage.getItem('slurm-lens-theme') || theme; } catch { /* Storage can be disabled. */ }
@@ -63,9 +65,7 @@ function render() {
   $('page-title').textContent=pages[page][0]; $('page-description').textContent=session.live&&page==='clusters'?'Scheduler inventory and measured hardware usage.':session.live&&page==='data'?'Connection health, collection timestamps, and data coverage.':pages[page][1];
   $('capture-time').textContent=stamp(frame.captured_at,session.live);
   $('capture-index').textContent=`Observation ${index+1} of ${session.frames.length} · ${session.live?(following?'following live':'history paused'):'recording'}`;
-  $('frame').value=index; $('frame').max=session.frames.length-1;
-  $('frame').setAttribute('aria-valuetext',`Observation ${index+1}, ${stamp(frame.captured_at,session.live)}`);
-  $('previous').disabled=index===0; $('next').disabled=index===session.frames.length-1;
+  updateHistory($('history'),session,index,measure);
   $('job-count').textContent=frame.jobs.length;
   document.querySelectorAll('[data-page]').forEach(a=>{
     if(a.dataset.page===page) a.setAttribute('aria-current','page'); else a.removeAttribute('aria-current');
@@ -101,9 +101,23 @@ function changeFrame(value) {
   index=Math.max(0,Math.min(session.frames.length-1,value)); render();
   $('announcement').textContent=`Observation ${index+1}, ${stamp(session.frames[index].captured_at)}`;
 }
-$('frame').addEventListener('input',e=>{if(session?.frames.length)changeFrame(Number(e.target.value));});
-$('previous').addEventListener('click',()=>{if(session?.frames.length)changeFrame(index-1);});
-$('next').addEventListener('click',()=>{if(session?.frames.length)changeFrame(index+1);});
+$('history-measure').addEventListener('change',e=>{measure=e.target.value;if(session?.frames.length)render();});
+$('history-time').addEventListener('focus',()=>{
+  if(session?.live&&following){following=false;$('live-toggle').textContent='Back to live';render();}
+});
+$('history-time').addEventListener('change',e=>{if(session?.frames.length)changeFrame(Number(e.target.value));});
+$('history-chart').addEventListener('click',e=>{
+  const plot=$('history-chart').querySelector('svg');
+  if(!plot||!session?.frames.length)return;
+  const bounds=plot.getBoundingClientRect();
+  changeFrame(nearestObservation(session.frames,((e.clientX-bounds.left)/bounds.width-.04)/.92));
+});
+$('latest').addEventListener('click',()=>{
+  if(!session?.frames.length)return;
+  if(session.live){following=true;session=liveCache;$('live-toggle').textContent='Pause live updates';}
+  index=session.frames.length-1;render();
+  $('announcement').textContent=`Showing latest observation, ${stamp(session.frames[index].captured_at,true)}`;
+});
 window.addEventListener('hashchange',navigate);
 
 function connectionState() {
@@ -118,11 +132,11 @@ function accept(next) {
   liveCache=mergeUpdate(liveCache,next); liveCache.update=next;
   if(!following) session={...session,update:next};
   connectionState();
-  if(liveCache.frames.length) $('frame').disabled=false;
+
   if(following) { session=liveCache; index=Math.max(0,session.frames.length-1); render(); }
   else if(page==='data') render();
   if(!session.frames.length) {
-    $('previous').disabled=true; $('next').disabled=true; $('frame').disabled=true;
+    updateHistory($('history'),session,0,measure);
     $('view').innerHTML='<div class="empty"><h2>Waiting for scheduler data</h2><p>No observations have been received. Connection details are shown above.</p></div>';
     $('view').setAttribute('aria-busy','false');
   }
@@ -156,8 +170,12 @@ try {
     setInterval(connectionState,5000);
     window.addEventListener('pagehide',()=>stream.close());
   } else if(!session.frames?.length) throw new Error('Recording contains no observations');
+  else index=session.frames.length-1;
   navigate();
 } catch(error) {
+  $('history-chart').textContent='History unavailable. Reload the page to try again.';
+  $('history-range').textContent='Unable to load observations';
+  $('latest').disabled=true; $('history-measure').disabled=true;
   $('capture-time').textContent='Data unavailable';
   $('capture-index').textContent='Could not load local data';
   $('view').innerHTML=`<div class="error"><h2>Unable to open workspace</h2><p>${escape(error.message)}</p><p>Check the local server output, then reload this page.</p><button class="button" id="retry">Reload page</button></div>`;
