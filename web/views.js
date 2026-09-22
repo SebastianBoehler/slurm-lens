@@ -1,6 +1,6 @@
 import {hasState, escape, stamp, active, current, terminal, table, jobButton, emptyMetric} from './components.js';
 import {inventory,telemetry,liveData} from './live-views.js';
-import {timeline, pendingList} from './timeline.js';
+import {timeline, pendingList, timetableFrame} from './timeline.js';
 
 export const pages = {
   overview: ['Overview','Your workload, with the context to understand it.'],
@@ -10,13 +10,13 @@ export const pages = {
   data: ['Available data','See what this workspace knows, and where the recording stops.'],
 };
 
-export function renderView(page, session, index) {
+export function renderView(page, session, index, rangeHours=0) {
   if(page==='data'&&session.live) return liveData(session,session.update);
   const frame=session.frames[index], jobs=frame.jobs;
-  if(page==='overview') return overview(session,index)+(session.live||frame.metrics?telemetry(session,index):'');
+  if(page==='overview') return overview(session,index)+(session.live||frame.metrics?telemetry(session,index,rangeHours):'');
   if(page==='jobs') return `<section class="panel"><div class="toolbar"><div class="tabs" role="group" aria-label="Filter by state"><button class="tab active" data-filter="all">All jobs <span>${jobs.length}</span></button><button class="tab" data-filter="RUNNING">Running</button><button class="tab" data-filter="PENDING">Pending</button><button class="tab" data-filter="COMPLETED">Completed</button></div><label class="search"><span aria-hidden="true">⌕</span><input id="job-search" type="search" placeholder="Search name, ID, or node" aria-label="Search jobs"></label></div><div id="job-table">${table(jobs,frame)}</div></section>`;
-  if(page==='timeline') return `<div class="section-title"><h2>${escape(jobs[0]?.cluster||'Recording')} <span class="muted">/ Node allocations</span></h2><div class="legend"><span><i class="swatch"></i>Running / last observed</span><span><i class="swatch finished"></i>Terminal</span></div></div><div class="timeline-layout"><section class="panel timeline-panel">${timeline(frame)}</section>${pendingList(frame)}</div>`;
-  if(page==='clusters') return session.live||frame.inventory?inventory(frame)+telemetry(session,index):clusters(frame);
+  if(page==='timeline') return `<div class="section-title"><h2>${escape(jobs[0]?.cluster||'Recording')} <span class="muted">/ Node allocations</span></h2><div class="legend"><span><i class="swatch"></i>Running / last observed</span><span><i class="swatch finished"></i>Terminal</span></div></div><div class="timeline-layout"><section class="panel timeline-panel">${timeline(timetableFrame(session,index),false,rangeHours)}</section>${pendingList(frame)}</div>`;
+  if(page==='clusters') return session.live||frame.inventory?inventory(frame)+telemetry(session,index,rangeHours):clusters(frame);
   if(session.live) return liveData(session,session.update);
   return dataPage(session);
 }
@@ -28,7 +28,7 @@ function overview(session,index) {
   const allocated=running.reduce((n,j)=>n+(j.allocated?.gpus||0),0);
   const waiting=pending.filter(j=>j.dependencies.length||j.dependency_expression);
   return `<div class="stats-strip">
-    ${[[running.length,'Running jobs',session.live?'At selected observation':'Observed at this snapshot'],[pending.length,'Pending jobs',`${waiting.length} waiting on dependencies`],[allocated,'GPUs allocated','To observed running jobs'],[complete.length,'Terminal jobs','Retained observed outcomes']].map(([n,label,sub])=>`<div class="stat"><span>${label}</span><strong>${n}</strong><small>${sub}</small></div>`).join('')}
+    ${[[running.length,'Running jobs','Latest collected state'],[pending.length,'Pending jobs',`${waiting.length} waiting on dependencies`],[allocated,'GPUs allocated','To observed running jobs'],[complete.length,'Terminal jobs','Retained observed outcomes']].map(([n,label,sub])=>`<div class="stat"><span>${label}</span><strong>${n}</strong><small>${sub}</small></div>`).join('')}
   </div><div class="overview-context"><section class="panel attention-panel"><div class="section-title"><h2>Queue context</h2><span class="count">${pending.length}</span></div>${waiting.length?`<div class="attention-summary"><span aria-hidden="true">↳</span><div><strong>${waiting.length} jobs waiting on predecessors</strong><p>Dependency conditions control when these jobs become eligible.</p></div></div>${waiting.slice(0,2).map(j=>`<div class="attention-row">${jobButton(j)}<span>Inspect dependency →</span></div>`).join('')}`:'<div class="attention-summary"><span aria-hidden="true">✓</span><div><strong>No recorded dependency blockers</strong><p>No dependency blockers were observed for these jobs.</p></div></div>'}<a class="text-link" href="#jobs">Explore all jobs →</a></section></div>
   <section class="panel"><div class="panel-heading"><h2>Jobs at this observation <span class="count">${frame.jobs.length}</span></h2><a class="text-link" href="#jobs">Filter jobs ↗</a></div>${table([...running,...pending,...frame.jobs.filter(j=>!running.includes(j)&&!pending.includes(j))],frame)}</section>
   ${session.live||frame.metrics?'':`<div class="coverage-strip"><span aria-hidden="true">◈</span><div><strong>Allocation is visible. Utilization is not collected.</strong><span> GPU activity, VRAM usage and CPU/RAM usage need a separate telemetry source.</span></div><a href="#data" class="text-link">Data coverage →</a></div>`}`;

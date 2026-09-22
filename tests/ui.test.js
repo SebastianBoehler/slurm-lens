@@ -76,14 +76,13 @@ test('Slurm state flags retain the pending category and queue reason',async()=>{
   assert.match(renderView('timeline',{...session,frames:[frame]},0),/Waiting for allocation/);
 });
 
-const {historyValues,pointPositions,nearestObservation,historyChart}=await import('../web/history.js');
-test('history uses actual elapsed time and selects the nearest observed timestamp',()=>{
+const {historyValues,pointPositions,historyWindow,historyChart}=await import('../web/history.js');
+test('history uses actual elapsed time and ranges leave the latest frame intact',()=>{
   const frames=['00:00:00','00:01:00','01:00:00'].map(t=>({captured_at:`2026-09-08T${t}Z`,jobs:[]}));
   assert.deepEqual(pointPositions(frames),[0,1/60,1]);
-  assert.equal(nearestObservation(frames,.1),1);
-  assert.equal(nearestObservation(frames,.9),2);
-  assert.equal(nearestObservation(frames,-1),0);
-  assert.equal(nearestObservation(frames,2),2);
+  assert.deepEqual(historyWindow(frames,.5),[frames[2]]);
+  assert.deepEqual(historyWindow(frames,0),frames);
+  assert.equal(frames.length,3);
   assert.deepEqual(pointPositions([frames[0]]),[.5]);
 });
 test('history measures sampled allocations and jobs without counting stale observations',()=>{
@@ -97,7 +96,7 @@ test('history measures sampled allocations and jobs without counting stale obser
   const zero={...frame,jobs:[]};
   assert.match(historyChart([zero],0,'gpus'),/over time: 0 to 0/);
   assert.ok(!historyChart([zero],0,'gpus').includes('NaN'));
-  assert.match(historyChart([],0,'gpus'),/first observation/);
+  assert.match(historyChart([],0,'gpus'),/first update/);
 });
 
 const {workloadGroups,workloadTable}=await import('../web/workload.js');
@@ -125,4 +124,31 @@ test('workload labels are escaped and a literal missing-label name is a distinct
   const html=workloadTable(frame,'user','running');
   assert.ok(!html.includes('<img'));assert.match(html,/&lt;img/);
   assert.ok(!html.includes('NaN'));
+});
+
+ test('live chart connects regular samples but leaves outages blank',()=>{
+  const frames=['00:00:00','00:00:10','00:05:00'].map(t=>({captured_at:`2026-09-08T${t}Z`,jobs:[]}));
+  assert.equal((historyChart(frames,2,'gpus',1,10).match(/class="history-trend"/g)||[]).length,1);
+  assert.equal((historyChart(frames,2,'gpus').match(/class="history-trend"/g)||[]).length,0);
+});
+
+test('timeline ranges clip durations without rewinding current workload',()=>{
+  const index=session.frames.length-1;
+  const full=renderView('timeline',session,index,0);
+  const recent=renderView('timeline',session,index,1);
+  assert.match(full,/Scrollable job timetable/);
+  assert.match(recent,/LAST UPDATE/);
+  assert.ok(!recent.includes('SNAPSHOT'));
+  const latest=session.frames[index];
+  assert.equal(workloadGroups(latest,'account')[0].gpus,1);
+  assert.ok(recent.length<full.length);
+});
+
+test('timetable retains earlier jobs after they leave the current scheduler response',async()=>{
+  const {timetableFrame}=await import('../web/timeline.js');
+  const old={id:'one',cluster:'test',observed_at:'2026-09-22T00:00:00Z'};
+  const newer={...old,observed_at:'2026-09-22T00:00:10Z'};
+  const frames=[{captured_at:old.observed_at,jobs:[old]},{captured_at:newer.observed_at,jobs:[newer]},{captured_at:'2026-09-22T00:00:20Z',jobs:[]}];
+  assert.deepEqual(timetableFrame({frames},2).jobs,[newer]);
+  assert.equal(frames[2].jobs.length,0);
 });

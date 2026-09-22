@@ -17,19 +17,17 @@
     </div>
   </header>
   <aside class="sidebar" aria-label="Main navigation">
-    <p class="nav-label">WORKSPACE</p>
     <nav>
       <a href="#overview" data-page="overview"><span aria-hidden="true">▦</span>Overview</a>
       <a href="#jobs" data-page="jobs"><span aria-hidden="true">≡</span>Jobs<span id="job-count" class="nav-count"></span></a>
       <a href="#timeline" data-page="timeline"><span aria-hidden="true">▥</span>Timeline</a>
       <a href="#clusters" data-page="clusters"><span aria-hidden="true">▧</span>Clusters</a>
     </nav>
-    <p class="nav-label second-label">OBSERVABILITY</p>
     <nav><a href="#data" data-page="data"><span aria-hidden="true">◈</span>Available data</a></nav>
     <div class="sidebar-foot"><span class="connection-dot"></span> Local · Read only<br><small>No cluster connection</small></div>
   </aside>
   <main id="content" tabindex="-1">
-    <div class="page-heading"><div><div class="eyebrow" id="workspace-eyebrow">RECORDED WORKSPACE</div><h1 id="page-title">Overview</h1><p id="page-description"></p></div>
+    <div class="page-heading"><div><h1 id="page-title">Overview</h1><p id="page-description"></p></div>
       <button id="source-button" class="button subtle">About this recording <span aria-hidden="true">↗</span></button>
     </div>
     <section class="panel history-panel" id="history" aria-labelledby="history-heading">
@@ -37,13 +35,14 @@
         <label for="history-measure">Show metric<select id="history-measure"><option value="gpus">Allocated GPUs</option><option value="running">Running jobs</option><option value="pending">Pending jobs</option></select></label>
       </div>
       <div class="history-chart" id="history-chart"><p class="history-empty">Loading history…</p></div>
-      <p class="history-caption" id="history-help">Select a point or choose a time to inspect it. Marks show observations; gaps are unknown.</p>
-      <div class="history-inspection"><div class="history-selected"><strong id="history-value">—</strong><span id="capture-time">Loading recording…</span><small id="capture-index">Reading local data</small></div>
-        <label for="history-time">Inspect observation<select id="history-time" aria-describedby="history-help" disabled><option>Waiting for data</option></select></label>
-        <div class="history-controls"><button id="latest" class="button">Show latest</button><button id="live-toggle" class="button" hidden>Pause live updates</button></div>
+      <p class="history-caption" id="history-help">Waiting for data…</p>
+      <div class="history-inspection"><div class="history-selected"><strong id="history-value">—</strong><span id="capture-time">Loading…</span><small id="capture-index"></small></div>
+        <label for="history-window">Time range<select id="history-window"><option value="1">Last hour</option><option value="6">Last 6 hours</option><option value="24">Last 24 hours</option><option value="0" selected>Available history</option></select></label>
+        <button id="live-toggle" class="button" hidden>Pause live updates</button>
       </div>
+      <details class="history-data-details"><summary>Chart data</summary><div id="history-data" class="table-scroll" tabindex="0" role="region" aria-label="Historical metric values"></div></details>
       <section class="workload-breakdown" aria-labelledby="workload-heading">
-        <div class="history-heading"><div><h2 id="workload-heading">Workload by account</h2><p>At the selected time · visible jobs only</p></div><label for="workload-group">Group by<select id="workload-group"><option value="account">Account</option><option value="user">User</option></select></label></div>
+        <div class="history-heading"><div><h2 id="workload-heading">Workload by account</h2><p>Latest collected state · visible jobs only</p></div><label for="workload-group">Group by<select id="workload-group"><option value="account">Account</option><option value="user">User</option></select></label></div>
         <div id="workload-groups"></div>
       </section>
     </section>
@@ -51,7 +50,7 @@
     <div id="view" aria-busy="true"><div class="empty">Loading the recorded session…</div></div>
     <footer class="page-footer"><span>Slurm Lens <span class="muted">/</span> v0.2</span><span>Recorded allocations. No simulated telemetry.</span></footer>
   </main>
-  <dialog id="inspector" aria-labelledby="inspector-title"><div class="inspector-top"><span>JOB INSPECTOR</span><button id="close-inspector" class="icon-button" aria-label="Close job details">×</button></div><div id="inspector-body"></div></dialog>
+  <dialog id="inspector" aria-labelledby="inspector-title"><div class="inspector-top"><span>Job details</span><button id="close-inspector" class="icon-button" aria-label="Close job details">×</button></div><div id="inspector-body"></div></dialog>
   <div id="announcement" role="status" class="sr-only"></div>
 </body>
 </html>

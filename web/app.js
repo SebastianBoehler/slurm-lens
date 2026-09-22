@@ -1,13 +1,14 @@
 import {escape, stamp, table} from './components.js';
 import {pages, renderView} from './views.js';
 import {inspector} from './inspector.js';
-import {updateHistory,nearestObservation} from './history.js';
+import {updateHistory} from './history.js';
+import {timetableFrame} from './timeline.js';
 import {workloadTable} from './workload.js';
 import {mergeUpdate,healthLabel} from './live-state.js';
 
 const $=id=>document.getElementById(id);
 let liveCache, update, following=true, disconnected=false, revision=-1;
-let measure='gpus', grouping='account';
+let measure='gpus', grouping='account', rangeHours=0;
 let session, index=0, page='overview', filter='all', query='', selected=null;
 let theme=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';
 try { theme=localStorage.getItem('slurm-lens-theme') || theme; } catch { /* Storage can be disabled. */ }
@@ -29,7 +30,7 @@ $('inspector').addEventListener('close',()=>{selected=null;});
 $('inspector').addEventListener('click',e=>{if(e.target===$('inspector')) $('inspector').close();});
 
 function openJob(id,cluster) {
-  const frame=session.frames[index], job=frame.jobs.find(j=>j.id===id&&j.cluster===cluster);
+  const frame=timetableFrame(session,index), job=frame.jobs.find(j=>j.id===id&&j.cluster===cluster);
   if(!job) { if($('inspector').open) $('inspector').close(); return; }
   selected={id,cluster};
   $('inspector-body').innerHTML=inspector(job,frame);
@@ -61,19 +62,22 @@ function render() {
   const frame=session.frames[index];
   const cluster=session.cluster||frame.jobs[0]?.cluster||'Recording';
   $('cluster-name').textContent=cluster;
-  $('workspace-eyebrow').textContent=`${cluster.toUpperCase()} / ${session.live?'LIVE WORKSPACE':'RECORDED WORKSPACE'}`;
   document.title=`${pages[page][0]} · Slurm Lens`;
   $('page-title').textContent=pages[page][0]; $('page-description').textContent=session.live&&page==='clusters'?'Scheduler inventory and measured hardware usage.':session.live&&page==='data'?'Connection health, collection timestamps, and data coverage.':pages[page][1];
-  $('capture-time').textContent=stamp(frame.captured_at,session.live);
-  $('capture-index').textContent=`Observation ${index+1} of ${session.frames.length} · ${session.live?(following?'following live':'history paused'):'recording'}`;
-  updateHistory($('history'),session,index,measure);
+  $('capture-time').textContent=`Last update: ${stamp(frame.captured_at,true)}`;
+  $('capture-index').textContent=session.live?(following?'Following live updates':'Display paused · collection continues'):'Recorded dataset · no live connection';
+  updateHistory($('history'),session,index,measure,rangeHours);
   $('workload-heading').textContent=`Workload by ${grouping}`;
   $('workload-groups').innerHTML=workloadTable(frame,grouping,measure);
   $('job-count').textContent=frame.jobs.length;
   document.querySelectorAll('[data-page]').forEach(a=>{
     if(a.dataset.page===page) a.setAttribute('aria-current','page'); else a.removeAttribute('aria-current');
   });
-  $('view').innerHTML=renderView(page,session,index); $('view').setAttribute('aria-busy','false');
+  const oldTimeline=$('view').querySelector('.timeline-scroll');
+  const timelineScroll=oldTimeline?{top:oldTimeline.scrollTop,left:oldTimeline.scrollLeft}:null;
+  $('view').innerHTML=renderView(page,session,index,rangeHours);
+  const newTimeline=$('view').querySelector('.timeline-scroll');
+  if(newTimeline&&timelineScroll){newTimeline.scrollTop=timelineScroll.top;newTimeline.scrollLeft=timelineScroll.left;} $('view').setAttribute('aria-busy','false');
   if(page==='jobs') {
     $('job-search').value=query;
     $('job-search').addEventListener('input',e=>{query=e.target.value;filterJobs();});
@@ -99,38 +103,20 @@ function navigate() {
   if($('inspector').open) $('inspector').close();
   render();
 }
-function changeFrame(value) {
-  if(session.live) { following=false; $('live-toggle').textContent='Back to live'; }
-  index=Math.max(0,Math.min(session.frames.length-1,value)); render();
-  $('announcement').textContent=`Observation ${index+1}, ${stamp(session.frames[index].captured_at)}`;
-}
 $('workload-group').addEventListener('change',e=>{grouping=e.target.value;render();});
 $('history-measure').addEventListener('change',e=>{measure=e.target.value;if(session?.frames.length)render();});
-$('history-time').addEventListener('focus',()=>{
-  if(session?.live&&following){following=false;$('live-toggle').textContent='Back to live';render();}
-});
-$('history-time').addEventListener('change',e=>{if(session?.frames.length)changeFrame(Number(e.target.value));});
-$('history-chart').addEventListener('click',e=>{
-  const plot=$('history-chart').querySelector('svg');
-  if(!plot||!session?.frames.length)return;
-  const bounds=plot.getBoundingClientRect();
-  changeFrame(nearestObservation(session.frames,((e.clientX-bounds.left)/bounds.width-.04)/.92));
-});
-$('latest').addEventListener('click',()=>{
-  if(!session?.frames.length)return;
-  if(session.live){following=true;session=liveCache;$('live-toggle').textContent='Pause live updates';}
-  index=session.frames.length-1;render();
-  $('announcement').textContent=`Showing latest observation, ${stamp(session.frames[index].captured_at,true)}`;
-});
+document.querySelector('.history-data-details').addEventListener('toggle',()=>{if(session)updateHistory($('history'),session,index,measure,rangeHours);});
+$('history-window').addEventListener('change',e=>{rangeHours=Number(e.target.value);render();});
 window.addEventListener('hashchange',navigate);
 
 function connectionState() {
   if(!update) return;
   $('connection-mode').textContent=healthLabel(update,disconnected);
   $('connection-status').hidden=false;
-  $('connection-status').textContent=`${healthLabel(update,disconnected)} · Last scheduler update: ${stamp(update.scheduler.last_success,true)}${update.telemetry.error?' · Telemetry unavailable':''}`;
+  $('connection-status').textContent=`${healthLabel(update,disconnected)} · Last scheduler update: ${stamp(update.scheduler.last_success,true)}${update.telemetry.error?' · Telemetry unavailable':''}${update.storage_error?' · '+update.storage_error:''}`;
 }
 function accept(next) {
+  if(update?.instance_id&&next.instance_id!==update.instance_id){revision=-1;liveCache={...liveCache,frames:[]};}
   if(next.revision<revision) return;
   revision=next.revision; update=next; disconnected=false;
   liveCache=mergeUpdate(liveCache,next); liveCache.update=next;
@@ -140,13 +126,13 @@ function accept(next) {
   if(following) { session=liveCache; index=Math.max(0,session.frames.length-1); render(); }
   else if(page==='data') render();
   if(!session.frames.length) {
-    updateHistory($('history'),session,0,measure);
+    updateHistory($('history'),session,0,measure,rangeHours);
     $('view').innerHTML='<div class="empty"><h2>Waiting for scheduler data</h2><p>No observations have been received. Connection details are shown above.</p></div>';
     $('view').setAttribute('aria-busy','false');
   }
 }
 $('live-toggle').addEventListener('click',()=>{
-  following=!following; $('live-toggle').textContent=following?'Pause live updates':'Back to live';
+  following=!following; $('live-toggle').textContent=following?'Pause live updates':'Resume live updates';
   if(following) { session=liveCache;index=Math.max(0,session.frames.length-1);render(); }
 });
 try {
@@ -162,7 +148,7 @@ try {
     $('live-toggle').hidden=false;
     $('source-button').textContent='Connection details';
     document.querySelector('.sidebar-foot').textContent='Read only · Slurm REST';
-    document.querySelector('.page-footer').lastElementChild.textContent='Live observations · bounded in-memory history';
+    document.querySelector('.page-footer').lastElementChild.textContent='Live monitoring · local persistent history';
     $('capture-time').textContent='Waiting for first observation';
     $('capture-index').textContent='No scheduler data yet';
     accept(status.update);
@@ -179,7 +165,7 @@ try {
 } catch(error) {
   $('history-chart').textContent='History unavailable. Reload the page to try again.';
   $('history-range').textContent='Unable to load observations';
-  $('latest').disabled=true; $('history-measure').disabled=true;
+  $('history-window').disabled=true; $('history-measure').disabled=true;
   $('capture-time').textContent='Data unavailable';
   $('capture-index').textContent='Could not load local data';
   $('view').innerHTML=`<div class="error"><h2>Unable to open workspace</h2><p>${escape(error.message)}</p><p>Check the local server output, then reload this page.</p><button class="button" id="retry">Reload page</button></div>`;

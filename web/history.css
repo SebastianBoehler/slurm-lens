@@ -34,3 +34,10 @@
 .workload-bar-track{display:block;background:var(--hover);height:6px;margin-top:9px;border-radius:2px;overflow:hidden}
 .workload-bar-track>span{display:block;height:100%;background:var(--chart)}
 @media(forced-colors:active){.workload-bar-track>span{background:CanvasText}}
+.history-chart{cursor:default}
+.history-trend{stroke:var(--chart);stroke-width:2;vector-effect:non-scaling-stroke}
+.history-bar{stroke-width:2}
+.history-data-details{margin-top:16px;font-size:13px}
+.history-data-details summary{cursor:pointer;color:var(--accent);padding:8px 0;width:fit-content}
+.history-data-details .table-scroll{max-height:240px;margin-top:10px}
+@media(forced-colors:active){.history-trend{stroke:CanvasText}}

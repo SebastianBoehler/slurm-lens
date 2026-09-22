@@ -11,37 +11,38 @@ export function historyValues(frames,measure) {
     return sum+Number(current(job,frame)&&hasState(job,measure==='pending'?'PENDING':'RUNNING'));
   },0));
 }
-export function pointPositions(frames) {
-  if(frames.length===1) return [0.5];
-  const start=Date.parse(frames[0].captured_at), span=Date.parse(frames.at(-1).captured_at)-start;
+export function historyWindow(frames,hours) {
+  if(!frames.length||!hours) return frames;
+  const since=Date.parse(frames.at(-1).captured_at)-hours*3600000;
+  return frames.filter(f=>Date.parse(f.captured_at)>=since);
+}
+export function pointPositions(frames,start=Date.parse(frames[0]?.captured_at)) {
+  if(frames.length===1&&start===Date.parse(frames[0].captured_at)) return [.5];
+  const span=Date.parse(frames.at(-1)?.captured_at)-start;
   return frames.map(f=>(Date.parse(f.captured_at)-start)/Math.max(1,span));
 }
-export function nearestObservation(frames,fraction) {
-  return pointPositions(frames).reduce((best,x,i,points)=>Math.abs(x-fraction)<Math.abs(points[best]-fraction)?i:best,0);
-}
-export function historyChart(frames,index,measure) {
-  if(!frames.length) return '<p class="history-empty">History will appear after the first observation.</p>';
-  const values=historyValues(frames,measure), positions=pointPositions(frames);
-  const max=Math.max(...values), top=Math.max(2,Math.ceil(max/2)*2);
-  const short=Date.parse(frames.at(-1).captured_at)-Date.parse(frames[0].captured_at)<60000;
+export function historyChart(frames,index,measure,hours=0,pollSeconds=0) {
+  if(!frames.length) return '<p class="history-empty">History will appear after the first update.</p>';
+  const values=historyValues(frames,measure), finish=Date.parse(frames.at(-1).captured_at);
+  const start=hours?finish-hours*3600000:Date.parse(frames[0].captured_at);
+  const positions=pointPositions(frames,start), max=Math.max(...values), top=Math.max(2,Math.ceil(max/2)*2);
+  const short=finish-start<60000;
   const tick=value=>new Date(value).toLocaleTimeString('en-GB',{timeZone:'UTC',hour:'2-digit',minute:'2-digit',...(short?{second:'2-digit'}:{})});
-  const x=i=>4+positions[i]*92, y=v=>136-v/top*112;
-  return `<svg class="history-plot" viewBox="0 0 1000 172" preserveAspectRatio="none" role="img" aria-label="${measures[measure]} over time: ${Math.min(...values)} to ${max}. ${frames.length} observations. Select a time below for exact values.">
+  const x=i=>40+positions[i]*920, y=v=>136-v/top*112;
+  // Connect regular live samples only; outages and sparse recordings remain gaps.
+  const segments=pollSeconds?values.slice(1).map((v,i)=>Date.parse(frames[i+1].captured_at)-Date.parse(frames[i].captured_at)<=Math.max(30,pollSeconds*2)*1000?`<line x1="${x(i)}" x2="${x(i+1)}" y1="${y(values[i])}" y2="${y(v)}" class="history-trend"/>`:'').join(''):'';
+  return `<svg class="history-plot" viewBox="0 0 1000 172" preserveAspectRatio="none" role="img" aria-label="${measures[measure]} over time: ${Math.min(...values)} to ${max}. ${frames.length} samples. Exact values are in Chart data.">
     ${[0,top/2,top].map(n=>`<line x1="40" x2="960" y1="${y(n)}" y2="${y(n)}" class="history-grid"/>`).join('')}
-    ${values.map((v,i)=>`<line x1="${x(i)*10}" x2="${x(i)*10}" y1="136" y2="${y(v)}" class="history-bar"/><circle cx="${x(i)*10}" cy="${y(v)}" r="3" class="history-dot"><title>${escape(stamp(frames[i].captured_at,true))}: ${metricValue(v,measure)}</title></circle>`).join('')}
-    <line x1="${x(index)*10}" x2="${x(index)*10}" y1="16" y2="144" class="history-selection"/>
-    <circle cx="${x(index)*10}" cy="${y(values[index])}" r="6" class="history-selected-dot"/>
+    ${segments}${values.map((v,i)=>`<line x1="${x(i)}" x2="${x(i)}" y1="136" y2="${y(v)}" class="history-bar"/><circle cx="${x(i)}" cy="${y(v)}" r="3" class="history-dot"><title>${escape(stamp(frames[i].captured_at,true))}: ${metricValue(v,measure)}</title></circle>`).join('')}
   </svg><div class="history-y-axis" aria-hidden="true"><span>${top}</span><span>${top/2}</span><span>0</span></div>
-  <div class="history-x-axis" aria-hidden="true"><span>${tick(frames[0].captured_at)}</span><span>${tick(frames.at(-1).captured_at)} UTC</span></div>`;
+  <div class="history-x-axis" aria-hidden="true"><span>${tick(start)}</span><span>${tick(finish)} UTC</span></div>`;
 }
-export function updateHistory(root,session,index,measure) {
-  const frames=session.frames, values=historyValues(frames,measure);
-  root.querySelector('#history-chart').innerHTML=historyChart(frames,index,measure);
-  const select=root.querySelector('#history-time');
-  const options=frames.map((f,i)=>`<option value="${i}" ${i===index?'selected':''}>${escape(stamp(f.captured_at,true))} · ${metricValue(values[i],measure)}</option>`).join('');
-  // Do not replace options underneath an open native picker on live refresh.
-  if(document.activeElement!==select) select.innerHTML=options;
-  select.disabled=!frames.length;
-  root.querySelector('#history-value').textContent=frames.length?metricValue(values[index],measure):'No observations';
+export function updateHistory(root,session,index,measure,hours=0) {
+  const frames=historyWindow(session.frames,hours), values=historyValues(frames,measure);
+  root.querySelector('#history-chart').innerHTML=historyChart(frames,frames.length-1,measure,hours,session.live?session.update?.poll_seconds:0);
+  root.querySelector('#history-value').textContent=frames.length?metricValue(values.at(-1),measure):'No data yet';
   root.querySelector('#history-range').textContent=frames.length?`${stamp(frames[0].captured_at)} — ${stamp(frames.at(-1).captured_at)}`:'Waiting for data';
+  root.querySelector('#history-help').textContent=session.live?'Samples arrive automatically. Lines connect nearby samples; collection gaps remain blank.':'Recorded data · marks show available samples. No values are invented between captures.';
+  const data=root.querySelector('#history-data');
+  if(root.querySelector('.history-data-details').open&&!data.contains(document.activeElement)) data.innerHTML=frames.length?`<table><caption class="sr-only">${measures[measure]} history</caption><thead><tr><th scope="col">Time (UTC)</th><th scope="col">${measures[measure]}</th></tr></thead><tbody>${frames.map((f,i)=>`<tr><td>${escape(stamp(f.captured_at,true))}</td><td>${values[i]}</td></tr>`).join('')}</tbody></table>`:'<p>No samples in this range.</p>';
 }
