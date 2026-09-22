@@ -1,0 +1,10 @@
+{
+  "cluster": "your-cluster-name",
+  "slurm_url": "https://slurm.example.org",
+  "slurm_user": "dashboard-reader",
+  "slurm_token_env": "SLURM_LENS_SLURM_TOKEN",
+  "poll_seconds": 10,
+  "history_frames": 8640,
+  "history_path": "/var/lib/slurm-lens/history.sqlite",
+  "prometheus": null
+}

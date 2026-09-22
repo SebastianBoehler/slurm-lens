@@ -2,7 +2,7 @@
 name = "slurm-lens"
 version = "0.2.0"
 edition = "2024"
-description = "A read-only Slurm dashboard with live REST streaming and recording playback"
+description = "A continuous read-only Slurm dashboard with live streaming and persistent history"
 license = "MIT"
 repository = "https://github.com/SebastianBoehler/slurm-lens"
 readme = "README.md"
@@ -17,6 +17,7 @@ tokio = { version = "1", features = ["macros", "rt-multi-thread", "time", "sync"
 reqwest = { version = "0.12", default-features = false, features = ["json", "rustls-tls"] }
 async-stream = "0.3"
 chrono = { version = "0.4", default-features = false, features = ["clock"] }
+rusqlite = { version = "0.38", features = ["bundled"] }
 
 [profile.release]
 lto = true

@@ -20,9 +20,9 @@ or shell environment. Do not put tokens in URLs or committed JSON.
 cargo run --release --locked -- --live local/connection.json
 ```
 
-Open http://127.0.0.1:4317. Without `--live`, the program opens the bundled recording;
-`--data file.json` opens a saved recording. A failed live connection never switches
-to the example. The dashboard displays its connection error and last observation.
+Open http://127.0.0.1:4317. `--demo` explicitly opens the bundled offline dataset;
+`--data file.json` opens a saved recording. No-argument startup prints usage.
+A failed live connection never switches to example data.
 
 HTTPS endpoints require valid certificates. HTTP is accepted only on loopback,
 for example through an administrator-configured SSH tunnel. Redirects are disabled
@@ -56,11 +56,11 @@ if it belongs to that older scheduler observation.
 
 ## Live and history
 
-Pause freezes the displayed observations while the server continues collecting.
-Selecting a chart observation or focusing the history time picker also pauses following. **Back to live** returns to the newest
-observation. A disconnected stream reconnects automatically and receives current
-state. Missed intermediate browser observations remain gaps; refresh retrieves the
-server's retained history.
+The dashboard follows the latest collected state. Time ranges control charts and
+the timetable without rewinding current jobs. Pause freezes the display while
+collection continues; Resume catches up. Disconnected streams reconnect and receive
+current state. Missed intermediate browser updates remain gaps until refresh loads
+the retained server history.
 
 `poll_seconds` is the delay after a collection completes (10–3600 seconds), not a
 hard real-time guarantee. Jobs/nodes/metrics are separate queries, not an atomic
@@ -70,10 +70,11 @@ separately from successful collection times. Instant queries can reuse samples
 within Prometheus lookback; these timestamps are not proof of the last device
 scrape time. CPU rates summarize a two-minute window.
 
-History is in memory, capped by `history_frames` (2–240) and approximately 32 MiB
-of serialized observations. A single normalized observation is limited to 4 MiB.
-These bounds exclude runtime object overhead and active browser copies. Export
-history to retain it across restarts. No persistent time-series database is bundled.
+History persists to `history_path` in local SQLite. Retention is capped by
+`history_frames` (2–10000) and 32 MiB of serialized samples; one sample may not
+exceed 4 MiB. Restarts restore retained history, with its original timestamps.
+Storage failures are explicit in the dashboard and `/healthz`. See
+[service deployment](deployment.md) for setup, backup, access and exact bounds.
 
 Disappearing jobs retain their last observation within the retention horizon;
 absence is not completion. Success/failure is only reported when observed. Slurm
@@ -82,15 +83,12 @@ implemented. Dependency expressions are preserved verbatim, including compound
 conditions. Multi-node hostlists remain allocation-group lanes; this version does
 not claim per-node GPU distribution or physical slot mapping for those jobs.
 
-## Deployment boundary
+## Deployment
 
-The service binds to loopback and validates the Host header. Run it on an authorized
-management host and access it through a private tunnel, or run it locally against
-administrator-provided HTTPS endpoints. This build is a single-operator service:
-it does **not** implement shared-user authentication, RBAC, TLS termination, or
-public hosting. Do not expose its cached data as a shared service without an
-authenticated deployment boundary. Tokens remain server-side; upstream response
-bodies and credential-bearing URLs are not included in UI error messages.
+Use the [continuous-service deployment guide](deployment.md) and included systemd
+unit. Collection runs independently of browser sessions. Bind remains loopback;
+shared access uses the operator's authenticated HTTPS gateway. All admitted viewers
+see the configured collector scope. Tokens remain server-side.
 
 ## Verification and references
 

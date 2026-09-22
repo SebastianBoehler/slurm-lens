@@ -30,7 +30,7 @@ class Fixture(BaseHTTPRequestHandler):
             COUNTS['jobs'] += 1
             assert self.headers.get('X-SLURM-USER-TOKEN') == 'test-only-token'
             data = {'meta': meta, 'errors': [], 'jobs': [{
-                'job_id': 101, 'name': 'LOCAL PROTOCOL TEST', 'account': 'test',
+                'job_id': 101, 'name': 'LOCAL PROTOCOL TEST', 'account': 'test', 'user_name': 'fixture-user',
                 'partition': 'test-gpu', 'job_state': ['RUNNING'], 'nodes': 'test-node',
                 'start_time': {'set': True, 'infinite': False, 'number': epoch - 120},
                 'submit_time': {'set': True, 'infinite': False, 'number': epoch - 180},
@@ -72,6 +72,7 @@ def launch():
         'cluster': 'protocol-test', 'slurm_url': f'http://127.0.0.1:{fixture.server_port}',
         'slurm_user': 'test', 'slurm_token_env': 'SLURM_LENS_TEST_TOKEN',
         'poll_seconds': 10, 'history_frames': 3,
+        'history_path': str(ROOT / f'local/protocol-test-{fixture.server_port}.sqlite'),
         'prometheus': {'url': f'http://127.0.0.1:{fixture.server_port}'},
     }
     config_path = ROOT / 'local/protocol-test.json'
@@ -104,6 +105,10 @@ def verify():
     assert ready['mode'] == 'live'
     frame = ready['update']['frame']
     assert frame['jobs'][0]['allocated']['gpus'] == 1
+    assert frame['jobs'][0]['user'] == 'fixture-user'
+    assert ready['update']['storage_error'] is None
+    with urllib.request.urlopen('http://127.0.0.1:4317/healthz') as r:
+        assert r.status == 200
     assert frame['inventory'][0]['cpus'] == 64
     assert len(frame['metrics']) == 4
     before = COUNTS.copy()
@@ -143,6 +148,20 @@ if __name__ == '__main__':
             process.wait()
         else:
             verify()
+            saved = get('/api/session')['frames'][-1]['captured_at']
+            CONTROL.write_text('{"fail":true}')
+            process.send_signal(signal.SIGTERM)
+            process.wait(timeout=5)
+            process = subprocess.Popen(process.args, env={**os.environ, 'SLURM_LENS_TEST_TOKEN':'test-only-token'})
+            restored = until(lambda s: s['update']['scheduler']['error'] is not None)
+            assert restored['update']['frame']['captured_at'] == saved
+            assert get('/api/session')['frames'][-1]['captured_at'] == saved
+            try:
+                urllib.request.urlopen('http://127.0.0.1:4317/healthz')
+                raise AssertionError('Unavailable scheduler must fail readiness')
+            except urllib.error.HTTPError as e:
+                assert e.code == 503
+            print('PASS: SIGTERM shutdown, persistent restart recovery and readiness')
     finally:
         process.send_signal(signal.SIGINT)
         process.wait(timeout=5)

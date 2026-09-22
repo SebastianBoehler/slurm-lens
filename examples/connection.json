@@ -4,9 +4,10 @@
   "slurm_user": "your-slurm-user",
   "slurm_token_env": "SLURM_LENS_SLURM_TOKEN",
   "poll_seconds": 30,
-  "history_frames": 120,
+  "history_frames": 2880,
   "prometheus": {
     "url": "https://prometheus.example.org",
     "token_env": "SLURM_LENS_PROMETHEUS_TOKEN"
-  }
+  },
+  "history_path": "local/history.sqlite"
 }

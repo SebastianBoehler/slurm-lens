@@ -10,6 +10,7 @@ pub struct Config {
     pub slurm_token_env: String,
     pub poll_seconds: u64,
     pub history_frames: usize,
+    pub history_path: String,
     pub prometheus: Option<Prometheus>,
 }
 #[derive(Deserialize)]
@@ -25,10 +26,11 @@ impl Config {
         if config.cluster.is_empty()
             || config.slurm_user.is_empty()
             || !(10..=3600).contains(&config.poll_seconds)
-            || !(2..=240).contains(&config.history_frames)
+            || config.history_path.trim().is_empty()
+            || !(2..=10000).contains(&config.history_frames)
         {
             return Err(
-                "Set cluster, Slurm user, poll_seconds (10–3600), and history_frames (2–240)"
+                "Set cluster, Slurm user, poll_seconds (10–3600), and history_frames (2–10000), and history_path"
                     .into(),
             );
         }

@@ -22,14 +22,25 @@ pub async fn serve(source: Source) -> Result<(), Box<dyn std::error::Error + Sen
     println!("Slurm Lens → http://127.0.0.1:4317\nRead-only · Ctrl+C to stop");
     tokio::select! {
         result = axum::serve(listener, app).into_future() => result?,
-        _ = tokio::signal::ctrl_c() => {},
+        _ = shutdown() => {},
     }
     Ok(())
+}
+async fn shutdown() {
+    #[cfg(unix)]
+    {
+        let mut term = tokio::signal::unix::signal(tokio::signal::unix::SignalKind::terminate())
+            .expect("SIGTERM handler");
+        tokio::select! { _=tokio::signal::ctrl_c()=>{}, _=term.recv()=>{} }
+    }
+    #[cfg(not(unix))]
+    let _ = tokio::signal::ctrl_c().await;
 }
 pub fn router(source: Source) -> Router {
     Router::new()
         .route("/api/session", axum::routing::get(session))
         .route("/api/status", axum::routing::get(status))
+        .route("/healthz", axum::routing::get(health))
         .route("/api/events", axum::routing::get(events))
         .fallback(asset)
         .with_state(source)
@@ -111,4 +122,29 @@ async fn events(State(source): State<Source>) -> Response {
     Sse::new(stream)
         .keep_alive(KeepAlive::default())
         .into_response()
+}
+
+async fn health(State(source): State<Source>) -> Response {
+    let Source::Live(live) = source else {
+        return (StatusCode::OK, "demo").into_response();
+    };
+    let state = live.state.read().await;
+    let fresh = state
+        .scheduler
+        .last_success
+        .as_deref()
+        .and_then(|t| chrono::DateTime::parse_from_rfc3339(t).ok())
+        .is_some_and(|t| {
+            (chrono::Utc::now() - t.with_timezone(&chrono::Utc)).num_seconds()
+                <= (state.poll_seconds * 2).max(30) as i64
+        });
+    if fresh && state.scheduler.error.is_none() && state.storage_error.is_none() {
+        (StatusCode::OK, "ready").into_response()
+    } else {
+        (
+            StatusCode::SERVICE_UNAVAILABLE,
+            "scheduler or history storage unavailable",
+        )
+            .into_response()
+    }
 }

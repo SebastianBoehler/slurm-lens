@@ -18,3 +18,7 @@ jobs:
       - run: npm test
       - run: cargo build --release --locked
       - run: python3 tests/live_http.py
+      - name: Validate service unit
+        run: |
+          sudo install -m 0755 target/release/slurm-lens /usr/local/bin/slurm-lens
+          systemd-analyze verify deploy/slurm-lens.service

@@ -11,6 +11,7 @@ pub struct Health {
 #[derive(Clone, Serialize)]
 pub struct Update {
     pub revision: u64,
+    pub instance_id: String,
     pub cluster: String,
     pub poll_seconds: u64,
     pub history_frames: usize,
@@ -18,6 +19,7 @@ pub struct Update {
     pub scheduler: Health,
     pub telemetry: Health,
     pub telemetry_enabled: bool,
+    pub storage_error: Option<String>,
     pub frame: Option<crate::model::Frame>,
 }
 #[derive(Clone)]
@@ -25,30 +27,51 @@ pub struct Live {
     pub state: Arc<RwLock<Update>>,
     pub history: Arc<RwLock<VecDeque<crate::model::Frame>>>,
     pub events: broadcast::Sender<Arc<Update>>,
+    store: Arc<crate::storage::Store>,
 }
 impl Live {
-    pub fn start(config: Config) -> Result<Self, reqwest::Error> {
+    pub async fn start(config: Config) -> Result<Self, Box<dyn std::error::Error + Send + Sync>> {
+        let path = config.history_path.clone();
+        let identity = format!(
+            "{}|{}|{}",
+            config.cluster, config.slurm_url, config.slurm_user
+        );
+        let limit = config.history_frames;
+        let (store, retained) = tokio::task::spawn_blocking(move || {
+            let store = crate::storage::Store::open(&path, &identity)?;
+            let retained = store.load(limit)?;
+            Ok::<_, String>((store, retained))
+        })
+        .await??;
+        let last = retained.back().cloned();
         let client = http_client::client()?;
         let (events, _) = broadcast::channel(8);
         let live = Self {
             state: Arc::new(RwLock::new(Update {
                 revision: 0,
+                instance_id: format!(
+                    "{}-{}",
+                    chrono::Utc::now().timestamp_micros(),
+                    std::process::id()
+                ),
                 cluster: config.cluster.clone(),
                 poll_seconds: config.poll_seconds,
                 history_frames: config.history_frames,
-                history_start: None,
+                history_start: retained.front().map(|f| f.captured_at.clone()),
+                storage_error: None,
                 telemetry_enabled: config.prometheus.is_some(),
                 scheduler: Health {
-                    last_success: None,
+                    last_success: last.as_ref().map(|f| f.captured_at.clone()),
                     error: None,
                 },
                 telemetry: Health {
                     last_success: None,
                     error: None,
                 },
-                frame: None,
+                frame: last,
             })),
-            history: Arc::new(RwLock::new(VecDeque::new())),
+            history: Arc::new(RwLock::new(retained)),
+            store: Arc::new(store),
             events,
         };
         let collector = live.clone();
@@ -130,7 +153,22 @@ impl Live {
                     }
                 }
                 state.history_start = history.front().map(|f| f.captured_at.clone());
+                let store = self.store.clone();
+                let persisted = frame.clone();
+                let oldest = state
+                    .history_start
+                    .clone()
+                    .unwrap_or_else(|| frame.captured_at.clone());
+                drop(history);
                 state.frame = Some(frame);
+                drop(state);
+                let result =
+                    tokio::task::spawn_blocking(move || store.save(&persisted, &oldest)).await;
+                state = self.state.write().await;
+                state.storage_error=match result {
+                    Ok(Ok(()))=>None,
+                    _=>Some("History could not be persisted; check the service state directory and disk space".into()),
+                };
             }
             Err(error) => state.scheduler.error = Some(error),
         }
@@ -139,7 +177,7 @@ impl Live {
     pub async fn session(&self) -> Session {
         let state = self.state.read().await;
         Session { schema_version:1, title:format!("{} live observations",state.cluster),
-            description:"Read-only Slurm REST and optional Prometheus observations. Visibility follows configured credentials. History is bounded and held in memory; export to retain it.".into(),
+            description:"Read-only Slurm REST and optional Prometheus observations. Visibility follows configured credentials. History is retained locally in SQLite with bounded retention.".into(),
             timezone:"UTC".into(),frames:self.history.read().await.iter().cloned().collect() }
     }
 }

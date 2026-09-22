@@ -1,4 +1,7 @@
-# History interaction review
+# History interaction review (historical)
+
+This documents the earlier observation-picker implementation. The current service
+UI uses time ranges and latest-state monitoring; see README.md and deployment.md.
 
 ## Scope and coverage
 
