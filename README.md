@@ -72,6 +72,19 @@ visible. History is bounded and in memory; export it before stopping the process
 6. Toggle the moon/sun button; the light/dark preference persists locally.
 7. Open **Available data** for provenance, limitations, and a recording export.
 
+## Workload by account or user
+
+The history panel compares jobs, running jobs, pending jobs and allocated GPUs
+by Slurm account or job owner at the selected observation. **Group by** switches
+the rows; **Show metric** selects the comparison bars. Totals cover visible jobs
+only and exclude stale observations. Missing GPU allocations are marked incomplete.
+
+Live collection retains the optional `user_name` field from
+[Slurm REST job responses](https://slurm.schedmd.com/rest_api.html). Older recordings
+without owners show **Not reported**; no identity is inferred from the account.
+An account is a scheduling/accounting group and may contain several users.
+These are allocation counts, not GPU utilization or billed GPU-hours.
+
 ## Pages
 
 | Page | What you can explore |

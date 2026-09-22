@@ -29,6 +29,8 @@ pub struct Job {
     pub name: String,
     pub cluster: String,
     pub account: String,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub user: Option<String>,
     pub partition: String,
     pub state: String,
     pub reason: String,

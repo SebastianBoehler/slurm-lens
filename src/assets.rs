@@ -1,5 +1,9 @@
 pub fn asset(path: &str) -> Option<(&'static str, &'static [u8])> {
     let file = match path {
+        "/workload.js" => (
+            "text/javascript",
+            include_bytes!("../web/workload.js").as_slice(),
+        ),
         "/history.js" => (
             "text/javascript",
             include_bytes!("../web/history.js").as_slice(),

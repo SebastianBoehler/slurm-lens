@@ -54,3 +54,20 @@ fn exporter_samples_keep_identity_and_reject_nonfinite_values() {
     value["data"]["result"][0]["value"][1] = json!("NaN");
     assert!(telemetry::parse(&value, "GPU utilization (%)").is_err());
 }
+
+#[test]
+fn job_owner_is_preserved_without_inventing_missing_identity() {
+    let (mut jobs, nodes) = responses();
+    for value in [json!(null), json!(""), json!("  "), json!("alice")] {
+        jobs["jobs"][0]["user_name"] = value.clone();
+        let frame = slurm::parse(&jobs, &nodes, "test", "2026-09-08T12:00:00Z").unwrap();
+        assert_eq!(
+            frame.jobs[0].user.as_deref(),
+            if value == "alice" {
+                Some("alice")
+            } else {
+                None
+            }
+        );
+    }
+}

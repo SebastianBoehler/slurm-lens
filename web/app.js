@@ -2,11 +2,12 @@ import {escape, stamp, table} from './components.js';
 import {pages, renderView} from './views.js';
 import {inspector} from './inspector.js';
 import {updateHistory,nearestObservation} from './history.js';
+import {workloadTable} from './workload.js';
 import {mergeUpdate,healthLabel} from './live-state.js';
 
 const $=id=>document.getElementById(id);
 let liveCache, update, following=true, disconnected=false, revision=-1;
-let measure='gpus';
+let measure='gpus', grouping='account';
 let session, index=0, page='overview', filter='all', query='', selected=null;
 let theme=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';
 try { theme=localStorage.getItem('slurm-lens-theme') || theme; } catch { /* Storage can be disabled. */ }
@@ -66,6 +67,8 @@ function render() {
   $('capture-time').textContent=stamp(frame.captured_at,session.live);
   $('capture-index').textContent=`Observation ${index+1} of ${session.frames.length} · ${session.live?(following?'following live':'history paused'):'recording'}`;
   updateHistory($('history'),session,index,measure);
+  $('workload-heading').textContent=`Workload by ${grouping}`;
+  $('workload-groups').innerHTML=workloadTable(frame,grouping,measure);
   $('job-count').textContent=frame.jobs.length;
   document.querySelectorAll('[data-page]').forEach(a=>{
     if(a.dataset.page===page) a.setAttribute('aria-current','page'); else a.removeAttribute('aria-current');
@@ -101,6 +104,7 @@ function changeFrame(value) {
   index=Math.max(0,Math.min(session.frames.length-1,value)); render();
   $('announcement').textContent=`Observation ${index+1}, ${stamp(session.frames[index].captured_at)}`;
 }
+$('workload-group').addEventListener('change',e=>{grouping=e.target.value;render();});
 $('history-measure').addEventListener('change',e=>{measure=e.target.value;if(session?.frames.length)render();});
 $('history-time').addEventListener('focus',()=>{
   if(session?.live&&following){following=false;$('live-toggle').textContent='Back to live';render();}

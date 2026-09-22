@@ -102,6 +102,10 @@ pub fn parse(jobs: &Value, nodes: &Value, cluster: &str, at: &str) -> Result<Fra
                 name: text(&v["name"]),
                 cluster: cluster.into(),
                 account: text(&v["account"]),
+                user: v["user_name"]
+                    .as_str()
+                    .filter(|s| !s.trim().is_empty())
+                    .map(str::to_owned),
                 partition: text(&v["partition"]),
                 state,
                 reason: text(&v["state_reason"]),

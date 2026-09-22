@@ -99,3 +99,30 @@ test('history measures sampled allocations and jobs without counting stale obser
   assert.ok(!historyChart([zero],0,'gpus').includes('NaN'));
   assert.match(historyChart([],0,'gpus'),/first observation/);
 });
+
+const {workloadGroups,workloadTable}=await import('../web/workload.js');
+test('workload grouping separates owners, aggregates accounts, and excludes stale allocations',()=>{
+  const at='2026-09-22T00:00:00Z';
+  const base={observed_at:at,state:'RUNNING',account:'research',user:'alice',allocated:{gpus:2}};
+  const frame={captured_at:at,jobs:[base,{...base,user:'bob',allocated:{gpus:4}},
+    {...base,state:'PENDING+REQUEUE_HOLD',allocated:null},
+    {...base,observed_at:'2026-09-21T00:00:00Z'},
+    {...base,account:'other',user:null,allocated:null}]};
+  const accounts=workloadGroups(frame,'account');
+  assert.deepEqual(accounts[0],{key:'research',label:'research',jobs:3,running:2,pending:1,gpus:6,unknown:0});
+  const users=workloadGroups(frame,'user');
+  assert.equal(users.find(g=>g.key==='alice').pending,1);
+  assert.equal(users.find(g=>g.key==='bob').gpus,4);
+  assert.equal(users.find(g=>g.key===null).unknown,1);
+  assert.match(workloadTable(frame,'user','gpus'),/Incomplete/);
+  assert.match(workloadTable(frame,'user','gpus'),/no reported user/);
+  assert.match(workloadTable({...frame,jobs:[]},'user','gpus'),/No current jobs/);
+});
+test('workload labels are escaped and a literal missing-label name is a distinct group',()=>{
+  const at='2026-09-22T00:00:00Z';
+  const frame={captured_at:at,jobs:[null,'Not reported','<img src=x>'].map(user=>({user,observed_at:at,state:'RUNNING',allocated:{gpus:0}}))};
+  assert.equal(workloadGroups(frame,'user').length,3);
+  const html=workloadTable(frame,'user','running');
+  assert.ok(!html.includes('<img'));assert.match(html,/&lt;img/);
+  assert.ok(!html.includes('NaN'));
+});

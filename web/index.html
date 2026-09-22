@@ -42,6 +42,10 @@
         <label for="history-time">Inspect observation<select id="history-time" aria-describedby="history-help" disabled><option>Waiting for data</option></select></label>
         <div class="history-controls"><button id="latest" class="button">Show latest</button><button id="live-toggle" class="button" hidden>Pause live updates</button></div>
       </div>
+      <section class="workload-breakdown" aria-labelledby="workload-heading">
+        <div class="history-heading"><div><h2 id="workload-heading">Workload by account</h2><p>At the selected time · visible jobs only</p></div><label for="workload-group">Group by<select id="workload-group"><option value="account">Account</option><option value="user">User</option></select></label></div>
+        <div id="workload-groups"></div>
+      </section>
     </section>
     <div id="connection-status" role="status" hidden></div>
     <div id="view" aria-busy="true"><div class="empty">Loading the recorded session…</div></div>
